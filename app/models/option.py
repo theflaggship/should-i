@@ -1,6 +1,5 @@
 from .db import db
-from datetime import datetime
-from .poll import Poll
+import datetime
 
 class Option(db.Model):
   __tablename__ = "options"

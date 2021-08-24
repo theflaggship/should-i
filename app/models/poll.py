@@ -1,5 +1,5 @@
 from .db import db
-from datetime import datetime
+import datetime
 from .option import Option
 
 class Poll(db.Model):
@@ -11,7 +11,7 @@ class Poll(db.Model):
   created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
   users = db.relationship("User", back_populates="polls")
-  options = db.relationsip("Option", back_populates="polls")
+  options = db.relationship("Option", back_populates="polls")
   comments = db.relationship("Comment", back_populates="polls")
 
   def to_dict(self):

@@ -1,5 +1,5 @@
 from .db import db
-from datetime import datetime
+import datetime
 
 class Vote(db.Model):
   __tablename__ = "votes"
