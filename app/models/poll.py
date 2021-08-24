@@ -8,7 +8,7 @@ class Poll(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
   question = db.Column(db.String(255), nullable=False)
-  created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+  created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
   users = db.relationship("User", back_populates="polls")
   options = db.relationsip("Option", back_populates="polls")

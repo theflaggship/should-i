@@ -8,7 +8,7 @@ class Comment(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
   poll_id = db.Column(db.Integer, db.ForeignKey("polls.id"))
   caption = db.Column(db.String(255), nullable=False)
-  created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+  created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
   users = db.relationship("User", back_populates="comments")
   polls = db.relationship("Poll", back_populates="comments")
