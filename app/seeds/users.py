@@ -18,7 +18,7 @@ def seed_users():
     user7 = User(
         email='shouldi@user.com', username='shouldi', profile_pic='https://i.imgur.com/rlnSc3f.png',  password='password')
     demo = User(
-        email='demo@user.com', username='Demo', profile_pic='https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png',  password='password')
+        email='demo@user.com', username='demo', profile_pic='https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png',  password='password')
 
 
     db.session.add(user1)
