@@ -1,5 +1,4 @@
 from .db import db
-from flask import jsonify
 
 class Poll(db.Model):
   __tablename__ = "polls"
@@ -8,7 +7,6 @@ class Poll(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
   question = db.Column(db.String(255), nullable=False)
   created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
-  updated_at = db.Column(db.DateTime, nullable=False, default=db.func.now(), onupdate=db.func.now())
 
   users = db.relationship('User', back_populates="polls")
 
