@@ -16,11 +16,11 @@ function HomePage() {
       <div className="user-home-container">
         {polls?.map((poll) => (
           <div className="poll-container">
-            <div>{poll?.question}</div>
+            <div>{poll.question}</div>
               <div className="options-container">
-                {poll?.options?.map((option) => (
-                   {option?.image ? <img src={option.content} /> : <div>{option.content}</div> }
-                ))}
+                {poll.options?.map((option) =>
+                   {option.image? <img key={option.id} src={option.content} /> : <div key={option.id}> {option.content}</div>}
+                )}
               </div>
           </div>
         ))}
