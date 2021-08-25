@@ -8,7 +8,7 @@ def seed_polls():
    poll3 = Poll(user_id=3, question="What planet should I visit after Mars?" )
    poll4 = Poll(user_id=4, question="Should I..." )
    poll5 = Poll(user_id=5, question="I am starving. Should I have tacos or pizza?" )
-   poll6 = Poll(user_id=6, question="Which wedding dress should I get marries in?" )
+   poll6 = Poll(user_id=6, question="Which wedding dress should I get married in?" )
    poll7 = Poll(user_id=7, question="Should we allow users to make private polls?" )
 
    db.session.add(poll1)
