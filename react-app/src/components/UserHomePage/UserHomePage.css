@@ -8,9 +8,10 @@
 }
 
 .poll-container {
-  width: 50%;
+  background-color: white;
+  width: 400px;
   height: auto;
-  border: 1px solid black;
+  border: 1px solid white;
   font-family: "Montserrat", sans-serif;
   padding: 10px;
   margin-top: 20px;
@@ -25,4 +26,9 @@
   border: 1px solid black;
   margin-bottom: 5px;
   padding: 3px;
+  width: 300px;
+}
+
+.option-image {
+  width: 200px;
 }
