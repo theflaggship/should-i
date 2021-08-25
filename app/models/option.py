@@ -12,10 +12,10 @@ class Option(db.Model):
   polls = db.relationship("Poll", back_populates="options")
   votes = db.relationship("Vote", back_populates="options")
 
-def to_dict(self):
-  return {
-    "id": self.id,
-    "poll_id": self.poll_id,
-    "content": self.content,
-    "created_at": self.created_at
+  def to_dict(self):
+    return {
+      "id": self.id,
+      "poll_id": self.poll_id,
+      "content": self.content,
+      "created_at": self.created_at
   }

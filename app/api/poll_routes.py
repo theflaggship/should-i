@@ -1,5 +1,6 @@
 from ..models.db import db
 from ..models.poll import Poll
+from ..models.option import Option
 from ..models.user import User
 from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_required
@@ -10,13 +11,14 @@ poll_routes = Blueprint('polls', __name__)
 # Get all polls
 
 @poll_routes.route('/')
-@login_required
 def get_all_polls():
-  polls = Poll.query.order_by(Poll.created_at.desc()).all()
-  print("++++++++++++++++")
-  print(polls)
-  print("++++++++++++++++")
-  return {poll.id: poll.to_dict() for poll in polls}
+  polls_query = Poll.query.order_by(Poll.created_at.desc()).all()
+  polls = [poll.to_dict() for poll in polls_query]
+  for poll in polls:
+    options = Option.query.filter(
+      Option.poll_id == poll["id"]).all()
+    poll['option'] = [option.to_dict() for option in options]
+  return {"polls": polls}
 
 
 

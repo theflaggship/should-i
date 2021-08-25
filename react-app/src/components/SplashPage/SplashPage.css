@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600&family=Roboto:wght@100;300;400;500&display=swap");
+
+.splash-page-container {
+  display: flex;
+  flex: row;
+  background-color: #2F455c;
+  justify-content: space-around;
+  height: auto;
+  width: auto;
+}
+
+.right-splash {
+  background-color: white
+}
