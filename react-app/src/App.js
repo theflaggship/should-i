@@ -5,6 +5,7 @@ import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import SplashPage from './components/SplashPage';
 import NavBar from './components/NavBar/';
+import UserHomePage from './components/UserHomePage/'
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
@@ -51,7 +52,7 @@ function App() {
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <NavBar />
-          <h1>My Home Page</h1>
+          <UserHomePage />
         </Route>
       </Switch>
     </BrowserRouter>

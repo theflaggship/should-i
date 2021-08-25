@@ -17,7 +17,7 @@ def get_all_polls():
   for poll in polls:
     options = Option.query.filter(
       Option.poll_id == poll["id"]).all()
-    poll['option'] = [option.to_dict() for option in options]
+    poll["options"] = [option.to_dict() for option in options]
   return {"polls": polls}
 
 
