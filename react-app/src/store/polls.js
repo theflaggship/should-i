@@ -10,9 +10,6 @@ export const getPolls = () => async dispatch => {
 
   if (res.ok) {
     const polls = await res.json()
-    console.log('------------------------------------');
-    console.log(polls);
-    console.log('------------------------------------');
     dispatch(loadPolls(polls.polls));
     return res
   }
