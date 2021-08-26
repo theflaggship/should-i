@@ -6,6 +6,7 @@ import './SignUpFormModal.css';
 function SignUpFormModal() {
 	const [showModal, setShowModal] = useState(false);
 
+
 	return (
 		<>
 			<div id='splash-signup-button' onClick={() => setShowModal(true)}>
