@@ -2,7 +2,7 @@ const CREATE_OPTION = 'options/CREATE_OPTION'
 
 const createOption = option => ({
   type: CREATE_OPTION,
-  polls
+  option
 })
 
 export const createOneOption = (poll_id, content, image) => async dispatch => {

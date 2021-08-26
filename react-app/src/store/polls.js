@@ -8,7 +8,7 @@ const loadPolls = polls => ({
 
 const createPoll = poll => ({
   type: CREATE_POLL,
-  polls
+  poll
 })
 
 export const getPolls = () => async dispatch => {
