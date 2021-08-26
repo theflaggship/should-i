@@ -47,3 +47,13 @@ table {
 body {
   background-color: #FAFAFA;
 }
+
+.errors {
+  font-family: "Montserrat", sans-serif;
+  color: rgb(191, 0, 0);
+  margin-bottom: 5px;
+}
+
+.errors-container {
+  text-align: center;
+}

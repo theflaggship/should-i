@@ -36,11 +36,11 @@ const LoginForm = () => {
     <div className="login-container">
       <p className="login-title">{"Should I Log In?   Yes!"}</p>
       <form onSubmit={onLogin}>
-        <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
+        <div className='errors-container'>
+					{errors.map((error, ind) => (
+						<div className="errors" key={ind}>{error}</div>
+					))}
+				</div>
         <div>
           <input
             name='email'
