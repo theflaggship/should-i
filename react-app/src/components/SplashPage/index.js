@@ -5,6 +5,8 @@ import * as sessionActions from '../../store/session'
 import { login } from '../../store/session'
 import LoginForm from '../auth/LoginForm';
 import './SplashPage.css'
+import SignUpFormModal from '../SignUpFormModal';
+import SignUpForm from '../auth/SignUpForm';
 
 
 function SplashPage({authenticated}) {
@@ -25,10 +27,11 @@ function SplashPage({authenticated}) {
   return (
     <div className="splash-page-container">
       <div className="left-splash">
-          <h1>This is my splash page</h1>
+          <img className="splash-logo" src="https://i.imgur.com/zJ1Mb0C.png"/>
       </div>
       <div className="right-splash">
           <LoginForm />
+          <SignUpFormModal />
       </div>
     </div>
   )
