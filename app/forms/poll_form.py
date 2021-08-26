@@ -4,7 +4,6 @@ from wtforms.validators import DataRequired, ValidationError
 
 class CreatePollForm(FlaskForm):
   question = StringField('Question', validators=[DataRequired()])
-  option = StringField('Option', validators=[DataRequired()])
 
   def update_question(self, new_question):
     self.question = new_question
