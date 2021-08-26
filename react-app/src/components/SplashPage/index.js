@@ -31,7 +31,11 @@ function SplashPage({authenticated}) {
       </div>
       <div className="right-splash">
           <LoginForm />
+          <img className="or-img" src="https://i.imgur.com/4i2hjuj.png"/>
           <SignUpFormModal />
+          <div className="demo-login-container">
+					  <p className="splash-demo-text">Should I try it out? <a className="splash-demo-click-here" onClick={demoLogin}>Click Here</a></p>
+				  </div>
       </div>
     </div>
   )

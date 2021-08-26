@@ -61,7 +61,7 @@ const LoginForm = () => {
             placeholder=" Password"
           />
           <div>
-            <button type='submit'>Login</button>
+            <button className="splash-login-button" type='submit'>Login</button>
           </div>
         </div>
       </form>

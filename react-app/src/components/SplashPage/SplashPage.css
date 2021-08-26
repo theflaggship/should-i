@@ -16,7 +16,8 @@
   margin-top: 200px;
   margin-right: 100px;
   background-color: white;
-  height: 400px;
+  height: 450px;
+  border-radius: 5px;
 }
 
 .splash-logo {
@@ -25,4 +26,26 @@
   margin-left: 50px;
   height: auto;
   width: 600px;
+}
+
+.or-img {
+  width: 15em;
+  height: auto;
+  margin-left: 85px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+.splash-demo-text {
+  font-family: "Montserrat", sans-serif;
+	color: gray;
+  margin-left: 45px;
+  margin-top: 35px;
+}
+
+.splash-demo-click-here {
+  text-decoration: underline;
+	color: #1eb59c;
+	cursor: pointer;
 }

@@ -1,14 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600&family=Roboto:wght@100;300;400;500&display=swap");
 
 #splash-signup-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   border: 1px white solid;
-  width: 50%;
+  width: 33%;
+  font-size: 20px;
+  border-radius: 5px;
+  height: 25px;
   background-color: #21D0B2;
   color: white;
   font-family: "Baloo 2", serif;
   margin-bottom: 18px;
   margin-top: 5px;
-  margin-left: 10px;
+  margin-left: 130px;
   padding: 5px 10px 5px 10px;
   cursor: pointer;
 }
@@ -19,10 +26,10 @@
 	margin-top: 30px;
 	color: #2F455c;
   font-family: "Baloo 2", serif;
-	font-size: 35px;
+	font-size: 30px;
 	font-weight: 500;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 60px;
+  padding-right: 60px;
   margin-bottom: 15px;
 }
 
