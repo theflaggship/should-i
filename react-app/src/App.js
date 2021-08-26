@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import SplashPage from './components/SplashPage';
@@ -14,6 +14,7 @@ import { authenticate } from './store/session';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [authenticated, setAuthenticated] = useState(false)
+  const user = useSelector(state => state.session.user)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,18 +31,6 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path='/login' exact={true}>
-          <LoginForm />
-        </Route>
-        <Route path='/sign-up' exact={true}>
-          <SignUpForm />
-        </Route>
-        <Route path="/splash" exact={true}>
-          <SplashPage
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
-          />
-        </Route>
         <ProtectedRoute path='/users' exact={true} >
           <NavBar />
           <UsersList/>
@@ -50,10 +39,16 @@ function App() {
           <NavBar />
           <User />
         </ProtectedRoute>
-        <Route path='/' exact={true} >
+        {user ?
+        <ProtectedRoute path='/' exact={true} >
           <NavBar />
           <UserHomePage />
+        </ProtectedRoute>
+        :
+        <Route path='/' exact={true} >
+          <SplashPage />
         </Route>
+        }
       </Switch>
     </BrowserRouter>
   );

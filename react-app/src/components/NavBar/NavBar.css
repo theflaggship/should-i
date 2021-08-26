@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600&family=Roboto:wght@100;300;400;500&display=swap");
+
+
+.navbar-container {
+	top: 0px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-content: space-around;
+	background-color: #2F455C;;
+}
+
+.left-nav {
+	margin-left: 30px;
+	padding: 5px;
+}
+
+.nav-logo {
+	width: 9em;
+	height: auto;
+	padding: 3px;
+	margin-left: 0px;
+	margin-top: 7px;
+}
+
+.search-input {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 5px;
+  padding: 7px;
+  width: 300px;
+  margin-top: 20px;
+  border: .5px solid gray;
+}
+
+.right-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: space-around;
+  margin-right: 30px;
+  margin-top: 15px;
+}
+
+.profile-page-button {
+  border: none;
+  font-size: 16px;
+  font-family: "Baloo 2", serif;
+  background-color: white;
+  border-radius: 5px;
+  color: #312C80;
+  margin-bottom: 18px;
+  margin-top: 8px;
+  padding: 10px 10px 10px 10px;
+  text-decoration: none;
+  align-items: center;
+  cursor: pointer;
+}

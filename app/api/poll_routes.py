@@ -18,6 +18,9 @@ def get_all_polls():
     options = Option.query.filter(
       Option.poll_id == poll["id"]).all()
     poll["options"] = [option.to_dict() for option in options]
+    user = User.query.filter(
+       User.id == poll["user_id"]).first()
+    poll["user"] = user.to_dict()
   return {"polls": polls}
 
 
