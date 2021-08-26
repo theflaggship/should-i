@@ -23,9 +23,27 @@ def get_all_polls():
     poll["user"] = user.to_dict()
   return {"polls": polls}
 
-
-
 # Create poll
+
+@poll_routes.route('/', methods=['POST'])
+@login_required
+def create_poll():
+  user = current_user
+  form = CreatePollForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    poll_data = form.data
+    poll = Poll(
+      user_id=user.id,
+      question=data['question'],
+    )
+    db.session.add(poll)
+    db.session.commit()
+
+    option = Option(
+      
+    )
+
 
 
 
