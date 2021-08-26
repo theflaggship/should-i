@@ -6,7 +6,7 @@ import { login } from '../../store/session'
 import LoginForm from '../auth/LoginForm';
 import './SplashPage.css'
 import SignUpFormModal from '../SignUpFormModal';
-import SignUpForm from '../auth/SignUpForm';
+
 
 
 function SplashPage({authenticated}) {

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Modal } from '../../context/Modal';
-import SignUpForm from './SignUpForm';
-import './SignUpForm.css';
+import { Modal } from '../../context/Modal.js';
+import SignUpForm from './SignUpFormModal';
+import './SignUpFormModal.css';
 
 function SignUpFormModal() {
 	const [showModal, setShowModal] = useState(false);
 
 	return (
 		<>
-			<div className='menu-signup-button' onClick={() => setShowModal(true)}>
+			<div id='splash-signup-button' onClick={() => setShowModal(true)}>
 				Sign Up
 			</div>
 			{showModal && (
@@ -16,7 +16,7 @@ function SignUpFormModal() {
 					<div className='signup-title-container'>
 						<h3 className='signup-title'>Should I Sign Up? Yes!</h3>
 					</div>
-					<SignUpForm setShowModal={setShowModal}/>
+					<SignUpForm />
 				</Modal>
 			)}
 		</>

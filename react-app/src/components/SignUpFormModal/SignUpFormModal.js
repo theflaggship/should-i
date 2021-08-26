@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import { login } from '../../store/session';
+import './SignUpFormModal.css'
 
 const SignUpForm = ({setShowModal}) => {
 	const [errors, setErrors] = useState([]);
 	const [email, setEmail] = useState('');
 	const [username, setUsername] = useState('');
-  const [profilePic, setProfilePic] = useState('')
+  const [profile_pic, setProfilePic] = useState('')
 	const [password, setPassword] = useState('');
 	const [repeatPassword, setRepeatPassword] = useState('');
 	const user = useSelector((state) => state.session.user);
@@ -16,12 +17,15 @@ const SignUpForm = ({setShowModal}) => {
 
 	const onSignUp = async (e) => {
 		e.preventDefault();
+		if (password !== repeatPassword) {
+			setErrors(['Passwords do not match'])
+		}
 		if (password === repeatPassword) {
 			const data = await dispatch(
 				signUp(
-					email,
 					username,
-          profilePic,
+					email,
+          profile_pic,
 					password
 				)
 			);
@@ -68,12 +72,22 @@ const SignUpForm = ({setShowModal}) => {
 	}
 
 	return (
-		<div className='form_container'>
+		<div className='form-container'>
 			<form onSubmit={onSignUp}>
 				<div className='errors-container'>
 					{errors.map((error, ind) => (
 						<div className="errors" key={ind}>{error}</div>
 					))}
+				</div>
+				<div className='form-input-container'>
+					<input
+						className='form-input'
+						placeholder=' Username'
+						type='text'
+						name='username'
+						onChange={updateUsername}
+						value={username}
+						required={true}></input>
 				</div>
 				<div className='form-input-container'>
 					<input
@@ -88,21 +102,11 @@ const SignUpForm = ({setShowModal}) => {
 				<div className='form-input-container'>
 					<input
 						className='form-input'
-						placeholder=' Username'
+						placeholder=' Profile Picture Url'
 						type='text'
-						name='username'
-						onChange={updateUsername}
-						value={username}
-						required></input>
-				</div>
-				<div className='form-input-container'>
-					<input
-						className='form-input'
-						placeholder=' Profile Pic Img URL'
-						type='text'
-						name='profilePic'
+						name='profile_pic'
 						onChange={updateProfilePic}
-						value={profilePic}
+						value={profile_pic}
 						required></input>
 				</div>
 				<div className='form-input-container'>
@@ -126,7 +130,7 @@ const SignUpForm = ({setShowModal}) => {
 						placeholder=' Confirm Password'></input>
 				</div>
 				<div className='form-button-container'>
-					<button className='user-signup-button' type='submit'>
+					<button className='modal-signup-button' type='submit'>
 						Sign Up
 					</button>
 				</div>
