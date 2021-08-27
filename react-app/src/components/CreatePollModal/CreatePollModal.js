@@ -23,8 +23,11 @@ const CreatePollForm = ({setShowModal}) => {
 
 	const onCreate = async (e) => {
     const allContent = [content1, content2]
-    if (content3 !== undefined) allContent.push(content3)
-    if (content4 !== undefined) allContent.push(content4)
+    if (content3 !== '') allContent.push(content3)
+    console.log('------------------------------------');
+    console.log(allContent);
+    console.log('------------------------------------');
+    if (content4 !== '') allContent.push(content4)
 		e.preventDefault();
 		const data = await dispatch(
 			createOnePoll(

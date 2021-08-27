@@ -1,0 +1,10 @@
+.delete-poll-icon {
+  position: absolute;
+  cursor: pointer;
+  margin-left: 395px;
+  margin-bottom: 50px;
+}
+
+.fa-minus-circle {
+  color: rgb(215, 0, 0);
+}
