@@ -2,7 +2,7 @@ from ..models.db import db
 from ..models.poll import Poll
 from ..models.option import Option
 from ..models.user import User
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 from flask_login import current_user, login_required
 from ..forms.poll_form import CreatePollForm
 
