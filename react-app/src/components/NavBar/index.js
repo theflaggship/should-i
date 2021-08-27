@@ -44,6 +44,7 @@ const NavBar = () => {
           <div className="arrow-button" onClick={()=> setOptions(!options)}>
             <i class="fas fa-chevron-right"></i>
           </div>
+          <LogoutButton />
         </div>
       </div>
     </div>
