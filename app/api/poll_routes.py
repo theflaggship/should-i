@@ -25,7 +25,7 @@ def get_all_polls():
 
 # Create poll
 
-@poll_routes.route('/', methods=['POST'])
+@poll_routes.route('/', methods=['GET','POST'])
 @login_required
 def create_poll():
   user = current_user
@@ -42,7 +42,7 @@ def create_poll():
 
 # Create option for poll
 
-@poll_routes.route('/<int:id>/options/', methods=['POST'])
+@poll_routes.route('/<int:id>/options/', methods=['GET','POST'])
 @login_required
 def create_option(id):
   form = CreateOptionForm()
