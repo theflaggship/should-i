@@ -12,7 +12,7 @@ const createPoll = poll => ({
 })
 
 export const getPolls = () => async dispatch => {
-  const res = await fetch('/api/polls');
+  const res = await fetch('/api/polls/');
 
   if (res.ok) {
     const polls = await res.json()
@@ -57,7 +57,10 @@ const pollsReducer = (state = {}, action) => {
       return newState
     }
     case CREATE_POLL: {
-      const newState = {...state}
+      const newState = {
+        ...state,
+        [action.poll.id]: action.poll
+      };
       return newState
     }
     default:
