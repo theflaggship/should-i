@@ -5,6 +5,7 @@ from ..models.user import User
 from flask import Blueprint, request
 from flask_login import current_user, login_required
 from ..forms.poll_form import CreatePollForm
+from ..forms.option_form import CreateOptionForm
 
 poll_routes = Blueprint('polls', __name__)
 
@@ -53,6 +54,9 @@ def create_option(id):
       content=form.data['content'],
       image=form.data['image']
     )
+    print("+++++++++++++++++++")
+    print(option.to_dict())
+    print("+++++++++++++++++++")
     db.session.add(option)
     db.session.commit()
     return option.to_dict()

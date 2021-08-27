@@ -22,7 +22,7 @@ export const getPolls = () => async dispatch => {
 }
 
 export const createOnePoll = (question) => async dispatch => {
-  const req = await fetch('api/polls/', {
+  const req = await fetch('/api/polls/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -35,10 +35,11 @@ export const createOnePoll = (question) => async dispatch => {
   if (req.ok) {
     const data = await req.json();
     dispatch(createPoll(data))
+    return data
   } else if (req.status < 500) {
       const data = await req.json();
-      if (data.errors) {
-        return data.errors
+      if (data) {
+        return data
       }
   } else {
     return ['An error occurred. Try again.']

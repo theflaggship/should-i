@@ -8,6 +8,7 @@ import CreatePollModal from '../CreatePollModal'
 function HomePage() {
   const user = useSelector(state => state.session.user)
   const polls = useSelector(state => Object.values(state.polls))
+  const sortedPolls = polls.reverse()
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,7 +17,7 @@ function HomePage() {
   return (
       <div className="user-home-container">
         <CreatePollModal />
-        {polls?.map((poll) => (
+        {sortedPolls?.map((poll) => (
           <div className="poll-container">
             <div className="user-info-container">
                 <div className="profile-pic-container">
