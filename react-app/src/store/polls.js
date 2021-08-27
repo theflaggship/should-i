@@ -22,7 +22,7 @@ export const getPolls = () => async dispatch => {
 }
 
 export const createOnePoll = (question) => async dispatch => {
-  const req = await fetch('api/polls', {
+  const req = await fetch('api/polls/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

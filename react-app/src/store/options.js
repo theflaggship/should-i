@@ -6,7 +6,7 @@ const createOption = option => ({
 })
 
 export const createOneOption = (poll_id, content, image) => async dispatch => {
-  const req = await fetch(`api/polls/${poll_id}/options`, {
+  const req = await fetch(`api/polls/${poll_id}/options/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
