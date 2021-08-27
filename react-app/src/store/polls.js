@@ -12,7 +12,7 @@ const createPoll = poll => ({
 })
 
 export const getPolls = () => async dispatch => {
-  const res = await fetch('/api/polls');
+  const res = await fetch('/api/polls/');
 
   if (res.ok) {
     const polls = await res.json()
@@ -22,7 +22,7 @@ export const getPolls = () => async dispatch => {
 }
 
 export const createOnePoll = (question) => async dispatch => {
-  const req = await fetch('api/polls/', {
+  const req = await fetch('/api/polls/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -35,10 +35,11 @@ export const createOnePoll = (question) => async dispatch => {
   if (req.ok) {
     const data = await req.json();
     dispatch(createPoll(data))
+    return data
   } else if (req.status < 500) {
       const data = await req.json();
-      if (data.errors) {
-        return data.errors
+      if (data) {
+        return data
       }
   } else {
     return ['An error occurred. Try again.']
@@ -56,7 +57,10 @@ const pollsReducer = (state = {}, action) => {
       return newState
     }
     case CREATE_POLL: {
-      const newState = {...state}
+      const newState = {
+        ...state,
+        [action.poll.id]: action.poll
+      };
       return newState
     }
     default:

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { createOnePoll } from '../../store/polls';
+import { createOnePoll, getPolls } from '../../store/polls';
 import { createOneOption } from '../../store/options';
 
 const CreatePollForm = ({setShowModal}) => {
@@ -15,35 +15,41 @@ const CreatePollForm = ({setShowModal}) => {
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getPolls())
+  }, [dispatch])
+
   let optionCount = 2
 
 	const onCreate = async (e) => {
     const allContent = [content1, content2]
-    if (content3) allContent.push(content3)
-    if (content4) allContent.push(content4)
+    if (content3 !== undefined) allContent.push(content3)
+    if (content4 !== undefined) allContent.push(content4)
 		e.preventDefault();
-			const data = await dispatch(
-				createOnePoll(
-					question
-				)
-			);
+		const data = await dispatch(
+			createOnePoll(
+				question
+			)
+		);
 
-      if (data) {
-				setErrors(data);
-			}
+    if (data.errors) {
+			setErrors(data.errors);
+		}
 
-      allContent.forEach((content) => async dispatch => {
-        let optionData = await dispatch(
-          createOneOption(content, image)
-          )
-          if (optionData) {
-            setErrors(errors.concat(optionData))
-          }
-      })
+    let optionData
+    allContent.forEach( async (content) => {
+        optionData = await dispatch(
+        createOneOption(data.id, content, image)
+      )
 
-			if (!errors) {
-				setShowModal(false)
-			}
+      if (optionData) {
+        setErrors(errors.concat(optionData))
+      }
+    })
+
+		if (!data.errors && !optionData) {
+			setShowModal(false)
+		}
 	};
 
 	const updateQuestion= (e) => {
