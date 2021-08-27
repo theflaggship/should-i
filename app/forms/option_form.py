@@ -3,7 +3,7 @@ from wtforms import StringField, IntegerField, DateField, TextField, BooleanFiel
 from wtforms.validators import DataRequired, ValidationError
 
 class CreateOptionForm(FlaskForm):
-  content = StringField('Question', validators=[DataRequired()])
+  content = StringField('Content', validators=[DataRequired()])
   image = BooleanField('Image')
 
   def update_option(self, new_content):

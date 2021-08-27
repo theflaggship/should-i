@@ -57,9 +57,9 @@ def create_option(id):
     db.session.add(option)
     db.session.commit()
     return option.to_dict()
-
-  errors = form.errors
-  return {'errors': validation_errors_to_error_messages(errors)}, 401
+  if form.errors:
+    errors = form.errors
+    return {'errors': validation_errors_to_error_messages(errors)}, 401
 
 
 # Edit poll

@@ -11,7 +11,6 @@ import { authenticate } from './store/session';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
-  const [authenticated, setAuthenticated] = useState(false)
   const user = useSelector(state => state.session.user)
   const dispatch = useDispatch();
 

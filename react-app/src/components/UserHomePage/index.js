@@ -2,8 +2,10 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getPolls } from "../../store/polls"
+import { deleteOnePoll } from '../../store/polls';
 import './UserHomePage.css'
 import CreatePollModal from '../CreatePollModal'
+import DeletePollModal from '../DeletePollModal';
 
 function HomePage() {
   const user = useSelector(state => state.session.user)
@@ -15,12 +17,8 @@ function HomePage() {
     dispatch(getPolls())
   }, [dispatch])
 
-  function handleDelete() {
-      return null
-  }
   return (
       <div className="user-home-container">
-        <CreatePollModal />
         {sortedPolls?.map((poll) => (
           <div className="poll-container">
             <div className="user-info-container">
@@ -28,15 +26,10 @@ function HomePage() {
                   <img className="profile-pic" src={poll?.user?.profile_pic}/>
                 </div>
                 <div className="poll-username">{poll?.user?.username}</div>
-              </div>
-              {poll.user_id === user.id ?
-              <div className="delete-poll-icon" onClick={handleDelete}>
-                <i class="fas fa-minus-circle"></i>
-              </div>
-              :
-              <div></div>
-              }
-
+                {(poll.user_id === user.id) &&
+                  <DeletePollModal pollId={poll?.id} />
+                }
+            </div>
             <div key={poll?.id}>{poll?.question}</div>
               <div className="options-container">
                 {poll.options?.map((option) =>
