@@ -19,7 +19,6 @@ function HomePage() {
 
   return (
       <div className="user-home-container">
-        <CreatePollModal />
         {sortedPolls?.map((poll) => (
           <div className="poll-container">
             <div className="user-info-container">

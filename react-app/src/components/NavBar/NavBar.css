@@ -15,7 +15,7 @@
 }
 
 .left-nav {
-	margin-left: 30px;
+	margin-left: 50px;
 	padding: 5px;
 }
 
@@ -41,7 +41,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-right: 30px;
+  margin-right: 50px;
 }
 
 .profile-page-button {
@@ -110,9 +110,8 @@
 
 .fa-chevron-right {
   position: absolute;
-  color: black;
   margin-right: 450px;
-  margin-bottom: 45px;
+  margin-bottom: 50px;
 }
 
 .nav-user-profile-container {
@@ -124,9 +123,8 @@
 .nav-username {
   text-align: center;
   margin-top: 30px;
-  margin-right: 12px;
+  margin-right: 35px;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   color:#000000
-
 }

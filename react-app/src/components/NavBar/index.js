@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import LogoutButton from '../auth/LogoutButton';
 import './NavBar.css'
+import CreatePollModal from '../CreatePollModal';
 
 const NavBar = () => {
   const sessionUser = useSelector(state => state?.session.user)
@@ -25,6 +26,9 @@ const NavBar = () => {
           </div>
         </div>
         <div className="right-nav">
+          <div className="create-poll-container">
+            <CreatePollModal />
+          </div>
           <div className="nav-user-profile-container">
             <div onClick={()=> setOptions(!options)} className="nav-profile-pic-container">
               <img className="nav-profile-pic" src={sessionUser.profile_pic}/>
@@ -38,7 +42,7 @@ const NavBar = () => {
         <div className='sidebar-container'>
           <p className="nav-username">{sessionUser.username}</p>
           <div className="arrow-button" onClick={()=> setOptions(!options)}>
-          <i class="fas fa-chevron-right"></i>
+            <i class="fas fa-chevron-right"></i>
           </div>
         </div>
       </div>
