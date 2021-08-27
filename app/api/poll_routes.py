@@ -23,10 +23,42 @@ def get_all_polls():
     poll["user"] = user.to_dict()
   return {"polls": polls}
 
-
-
 # Create poll
 
+@poll_routes.route('/', methods=['GET','POST'])
+@login_required
+def create_poll():
+  user = current_user
+  form = CreatePollForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    poll = Poll(
+      user_id=user.id,
+      question=form.data['question'],
+    )
+    db.session.add(poll)
+    db.session.commit()
+    return poll.to_dict()
+
+# Create option for poll
+
+@poll_routes.route('/<int:id>/options/', methods=['GET','POST'])
+@login_required
+def create_option(id):
+  form = CreateOptionForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    option = Option(
+      poll_id=id,
+      content=form.data['content'],
+      image=form.data['image']
+    )
+    db.session.add(option)
+    db.session.commit()
+    return option.to_dict()
+
+  error = form.errors
+  return {'errors': validation_errors_to_error_messages(errors)}, 401
 
 
 # Edit poll

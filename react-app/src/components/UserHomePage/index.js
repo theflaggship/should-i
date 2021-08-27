@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getPolls } from "../../store/polls"
 import './UserHomePage.css'
+import CreatePollModal from '../CreatePollModal'
 
 function HomePage() {
   const user = useSelector(state => state.session.user)
@@ -14,6 +15,7 @@ function HomePage() {
   }, [dispatch])
   return (
       <div className="user-home-container">
+        <CreatePollModal />
         {polls?.map((poll) => (
           <div className="poll-container">
             <div className="user-info-container">
