@@ -11,6 +11,7 @@ const CreatePollForm = ({setShowModal}) => {
   const [content2, setContent2] = useState('');
   const [content3, setContent3] = useState('');
   const [content4, setContent4] = useState('');
+  const [image, setImage] = useState(false);
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
 
@@ -31,9 +32,9 @@ const CreatePollForm = ({setShowModal}) => {
 				setErrors(data);
 			}
 
-      allContent.forEach((content) => {
+      allContent.forEach((content) => async dispatch => {
         let optionData = await dispatch(
-          createOneOption(content)
+          createOneOption(content, image)
           )
           if (optionData) {
             setErrors(errors.concat(optionData))
@@ -43,25 +44,35 @@ const CreatePollForm = ({setShowModal}) => {
 			if (!errors) {
 				setShowModal(false)
 			}
-		};
-
 	};
 
 	const updateQuestion= (e) => {
 		setQuestion(e.target.value);
 	};
 
-  const updateContent= (e) => {
-		setContent(e.target.value);
+  const updateContent1= (e) => {
+		setContent1(e.target.value);
 	};
 
-	if (user) {
-		return <Redirect to='/' />;
-	}
+  const updateContent2= (e) => {
+		setContent2(e.target.value);
+	};
+
+  const updateContent3= (e) => {
+		setContent3(e.target.value);
+	};
+
+  const updateContent4= (e) => {
+		setContent4(e.target.value);
+	};
+
+  const updateImage = async (e) => {
+    setImage(e.target.checked)
+}
 
 	return (
 		<div className='new-poll-container'>
-			<form onSubmit={onSignUp}>
+			<form onSubmit={onCreate}>
 				<div className='errors-container'>
 					{errors.map((error, ind) => (
 						<div className="errors" key={ind}>{error}</div>
@@ -71,92 +82,37 @@ const CreatePollForm = ({setShowModal}) => {
 						className='question-input'
 						placeholder='   Should I...'
 						type='text'
-						name='question'
 						onChange={updateQuestion}
 						value={question}
 						required={true}></textarea>
+          <input
+              type='checkbox'
+              className='image-checkbox'
+              onChange={updateImage}
+              value={image}></input>
           <div className="option-container">
 					  <input
-					  	className='form-input'
+					  	className='option-input'
 					  	placeholder=' Option 1'
 					  	type='text'
-					  	name='firstName'
-					  	onChange={updateFirstName}
-					  	value={firstName}
+					  	onChange={updateContent1}
+					  	value={content1}
 					  	required></input>
-            </div>
-				<div className='form-label__container'>
-					<input
-						className='form-input'
-						placeholder=' Last Name'
-						type='text'
-						name='lastName'
-						onChange={updateLastName}
-						value={lastName}
-						required></input>
-				</div>
-				<div className='form-label__container'>
-					<input
-						className='form-input'
-						placeholder=' Birth Date'
-						type='text'
-						name='birthDate'
-						onChange={updateBirthDate}
-						value={birthDate}
-						required={true}></input>
-				</div>
-				<div className='form-label__container'>
-					<input
-						className='form-input'
-						placeholder=' Image URL'
-						type='text'
-						name='imgUrl'
-						onChange={updateImgUrl}
-						value={imgUrl}
-						required={false}></input>
-				</div>
-				<div className='form-label__container'>
-					<select
-						className='form-input'
-						value={gender}
-						onChange={updateGender}
-						required={true}>
-						<option value=''>--Select gender--</option>
-						<option value='Male'>Male</option>
-						<option value='Female'>Female</option>
-						<option value='Prefer not to answer'>
-							Prefer not to answer
-						</option>
-					</select>
-				</div>
-				<div className='form-label__container'>
-					<input
-						className='form-input'
-						type='password'
-						name='password'
-						onChange={updatePassword}
-						value={password}
-						required={true}
-						placeholder=' Password'></input>
-				</div>
-				<div className='form-label__container'>
-					<input
-						className='form-input'
-						type='password'
-						name='repeat_password'
-						onChange={updateRepeatPassword}
-						value={repeatPassword}
-						required={true}
-						placeholder=' Confirm Password'></input>
-				</div>
-				<div className='form-button__container'>
-					<button className='user-signup-button' type='submit'>
-						Sign Up
-					</button>
-				</div>
-				<div className="demo-login-container">
-					<p className="demo-text">To demo TableTalk, <a className="demo-click-here" onClick={demoLogin}>Click Here</a></p>
-				</div>
+          </div>
+          <div className="option-container">
+					  <input
+					  	className='option-input'
+					  	placeholder=' Option 2'
+					  	type='text'
+					  	onChange={updateContent2}
+					  	value={content2}
+					  	required></input>
+          </div>
+				  <div className='create-button-container'>
+					  <button className='create-poll-button' type='submit'>
+					  	Ask Away
+					  </button>
+			  	</div>
 			</form>
 		</div>
 	);

@@ -42,7 +42,7 @@ def create_poll():
 
 # Create option for poll
 
-@poll_routes.route('<int:id>/options', methods=['POST'])
+@poll_routes.route('/<int:id>/options/', methods=['POST'])
 @login_required
 def create_option(id):
   form = CreateOptionForm()
