@@ -25,6 +25,23 @@ def get_all_polls():
     poll["user"] = user.to_dict()
   return {"polls": polls}
 
+# Create poll
+
+@poll_routes.route('/', methods=['POST'])
+@login_required
+def create_poll():
+  user = current_user
+  form = CreatePollForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    poll = Poll(
+      user_id=user.id,
+      question=form.data['question'],
+    )
+    db.session.add(poll)
+    db.session.commit()
+    return poll.to_dict()
+
 # Create option for poll
 
 @poll_routes.route('/<int:id>/options/', methods=['POST'])
@@ -44,26 +61,31 @@ def create_option(id):
   errors = form.errors
   return {'errors': validation_errors_to_error_messages(errors)}, 401
 
-# Create poll
-
-@poll_routes.route('/', methods=['POST'])
-@login_required
-def create_poll():
-  user = current_user
-  form = CreatePollForm()
-  form['csrf_token'].data = request.cookies['csrf_token']
-  if form.validate_on_submit():
-    poll = Poll(
-      user_id=user.id,
-      question=form.data['question'],
-    )
-    db.session.add(poll)
-    db.session.commit()
-    return poll.to_dict()
-
 
 # Edit poll
 
 
 
 # Delete poll
+
+@poll_routes.route('/<int:id>', methods=['DELETE'])
+def delete_poll(id):
+  poll = Poll.query.get(id)
+  options = Option.query.filter(Option.poll_id == id).all()
+  for option in options:
+    db.session.delete(option)
+    db.session.commit()
+  db.session.delete(poll)
+  db.session.commit()
+
+  return {}, 204
+
+# Delete one option in poll
+
+@poll_routes.route('/options/<int:id>', methods=['DELETE'])
+def delete_option(id):
+  option = Option.query.get(id)
+  db.session.delete(option)
+  db.session.commit()
+
+  return {}, 204

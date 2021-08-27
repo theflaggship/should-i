@@ -14,6 +14,10 @@ function HomePage() {
   useEffect(() => {
     dispatch(getPolls())
   }, [dispatch])
+
+  function handleDelete() {
+      return null
+  }
   return (
       <div className="user-home-container">
         <CreatePollModal />
@@ -25,6 +29,14 @@ function HomePage() {
                 </div>
                 <div className="poll-username">{poll?.user?.username}</div>
               </div>
+              {poll.user_id === user.id ?
+              <div className="delete-poll-icon" onClick={handleDelete}>
+                <i class="fas fa-minus-circle"></i>
+              </div>
+              :
+              <div></div>
+              }
+
             <div key={poll?.id}>{poll?.question}</div>
               <div className="options-container">
                 {poll.options?.map((option) =>

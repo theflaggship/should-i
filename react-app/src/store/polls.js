@@ -1,5 +1,6 @@
 const LOAD_POLLS = 'polls/GET_POLLS'
 const CREATE_POLL = 'polls/CREATE_POLL'
+const DELETE_POLL = 'polls/DELETE_POLL'
 
 const loadPolls = polls => ({
   type: LOAD_POLLS,
@@ -8,6 +9,11 @@ const loadPolls = polls => ({
 
 const createPoll = poll => ({
   type: CREATE_POLL,
+  poll
+})
+
+const deletePoll = poll => ({
+  type: DELETE_POLL,
   poll
 })
 
@@ -22,7 +28,7 @@ export const getPolls = () => async dispatch => {
 }
 
 export const createOnePoll = (question) => async dispatch => {
-  const req = await fetch('/api/polls/', {
+  const res = await fetch('/api/polls/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -32,17 +38,28 @@ export const createOnePoll = (question) => async dispatch => {
     })
   });
 
-  if (req.ok) {
-    const data = await req.json();
+  if (res.ok) {
+    const data = await res.json();
     dispatch(createPoll(data))
     return data
-  } else if (req.status < 500) {
-      const data = await req.json();
+  } else if (res.status < 500) {
+      const data = await res.json();
       if (data) {
         return data
       }
   } else {
     return ['An error occurred. Try again.']
+  }
+}
+
+export const deleteOnePoll = (id) => async dispatch => {
+  const res = await fetch(`/api/polls/${id}`, {
+    method: 'DELETE',
+  })
+  if (res.ok) {
+    const deleted = await res.json()
+    dispatch(deletePoll(id))
+    return deleted
   }
 }
 
@@ -61,6 +78,11 @@ const pollsReducer = (state = {}, action) => {
         ...state,
         [action.poll.id]: action.poll
       };
+      return newState
+    }
+    case DELETE_POLL: {
+      const newState = {...state};
+      delete newState[action.poll.id]
       return newState
     }
     default:

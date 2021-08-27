@@ -1,5 +1,3 @@
-import thunk from "redux-thunk";
-
 const CREATE_OPTION = 'options/CREATE_OPTION'
 
 const createOption = option => ({
@@ -8,7 +6,7 @@ const createOption = option => ({
 })
 
 export const createOneOption = (poll_id, content, image) => async dispatch => {
-  const req = await fetch(`/api/polls/${poll_id}/options/`, {
+  const res = await fetch(`/api/polls/${poll_id}/options/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -18,12 +16,12 @@ export const createOneOption = (poll_id, content, image) => async dispatch => {
     })
   });
 
-  if (req.ok) {
-    const data = await req.json();
+  if (res.ok) {
+    const data = await res.json();
     dispatch(createOption(data))
 
-  } else if (req.status < 500) {
-    const data = await req.json();
+  } else if (res.status < 500) {
+    const data = await res.json();
 
     if (data.errors) {
       return data.errors
