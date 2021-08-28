@@ -34,10 +34,22 @@ export const createOnePoll = (question) => async dispatch => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      // user_id: userId,
       question
     })
   });
-
+  // const poll = await res.json()
+  // if (res.ok) {
+  //   const formattedPoll = {
+  //     created_at: poll.created_at,
+  //     id: poll.id,
+  //     options: [],
+  //     question: poll.question,
+  //     user: {},
+  //     user_id: poll.user_id,
+  //   }
+  //   return
+  // }
   if (res.ok) {
     const data = await res.json();
     dispatch(createPoll(data))
