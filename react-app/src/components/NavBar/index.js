@@ -44,6 +44,9 @@ const NavBar = () => {
           <div className="arrow-button" onClick={()=> setOptions(false)}>
             <i class="fas fa-chevron-right"></i>
           </div>
+          <NavLink to={`/users/${sessionUser.id}/polls`} className='my-polls-link' exact={true} activeClassName='active'>
+            My Polls
+          </NavLink>
           <LogoutButton />
         </div>
       </div>

@@ -5,6 +5,7 @@ import SplashPage from './components/SplashPage';
 import NavBar from './components/NavBar/';
 import UserHomePage from './components/UserHomePage/'
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import UserPollsPage from './components/UserPollsPage'
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
@@ -32,9 +33,9 @@ function App() {
           <NavBar />
           <UsersList/>
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        <ProtectedRoute path='/users/:userId/polls' exact={true} >
           <NavBar />
-          <User />
+          <UserPollsPage/>
         </ProtectedRoute>
         {user ?
         <ProtectedRoute path='/' exact={true} >

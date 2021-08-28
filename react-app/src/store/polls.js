@@ -27,6 +27,16 @@ export const getPolls = () => async dispatch => {
   }
 }
 
+export const getUserPolls = (id) => async dispatch => {
+  const res = await fetch(`/api/users/${id}/polls/`)
+
+  if (res.ok) {
+    const polls = await res.json()
+    dispatch(loadPolls(polls.polls))
+    return res
+  }
+}
+
 export const createOnePoll = (question) => async dispatch => {
   const res = await fetch('/api/polls/', {
     method: 'POST',
