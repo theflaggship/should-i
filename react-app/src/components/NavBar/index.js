@@ -38,10 +38,10 @@ const NavBar = () => {
           <LogoutButton /> */}
         </div>
       </div>
-      <div className="sidebar" style={!options ? {transform: 'translateX(-110%)'} : {}}>
+      <div className="sidebar" style={options ? {transform: 'translateX(-110%)'} : {}}>
         <div className='sidebar-container'>
           <p className="nav-username">{sessionUser.username}</p>
-          <div className="arrow-button" onClick={()=> setOptions(!options)}>
+          <div className="arrow-button" onClick={()=> setOptions(false)}>
             <i class="fas fa-chevron-right"></i>
           </div>
           <LogoutButton />

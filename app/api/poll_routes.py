@@ -68,7 +68,7 @@ def create_option(id):
 
 # Delete poll
 
-@poll_routes.route('/<int:id>', methods=['DELETE'])
+@poll_routes.route('/<int:id>/', methods=['DELETE'])
 def delete_poll(id):
   poll = Poll.query.get(id)
   options = Option.query.filter(Option.poll_id == id).all()
@@ -77,12 +77,11 @@ def delete_poll(id):
     db.session.commit()
   db.session.delete(poll)
   db.session.commit()
-
   return {}, 204
 
 # Delete one option in poll
 
-@poll_routes.route('/options/<int:id>', methods=['DELETE'])
+@poll_routes.route('/options/<int:id>/', methods=['DELETE'])
 def delete_option(id):
   option = Option.query.get(id)
   db.session.delete(option)

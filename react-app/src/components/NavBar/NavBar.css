@@ -72,6 +72,10 @@
   cursor: pointer;
 }
 
+.nav-profile-pic-container:hover {
+  box-shadow: 0px 0 8px .5px rgb(211, 211, 211);
+}
+
 .nav-profile-pic {
   width: 100%;
   height: auto;

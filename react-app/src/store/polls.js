@@ -53,12 +53,11 @@ export const createOnePoll = (question) => async dispatch => {
 }
 
 export const deleteOnePoll = (id) => async dispatch => {
-  const res = await fetch(`/api/polls/${id}`, {
+  const deleted = await fetch(`/api/polls/${id}/`, {
     method: 'DELETE',
   })
-  if (res.ok) {
-    const deleted = await res.json()
-    dispatch(deletePoll(id))
+  if (deleted) {
+     dispatch(deletePoll(id))
     return deleted
   }
 }
@@ -82,7 +81,10 @@ const pollsReducer = (state = {}, action) => {
     }
     case DELETE_POLL: {
       const newState = {...state};
-      delete newState[action.poll.id]
+      console.log('------------------------------------');
+      console.log(newState);
+      console.log('------------------------------------');
+      delete newState[action.poll]
       return newState
     }
     default:
