@@ -73,38 +73,35 @@ export const createOnePoll = (question, allContent, image, user) => async dispat
 }
 
 
-export const editOnePoll = (pollId, question, allContent, user) => async dispatch => {
+export const editOnePoll = (pollId, question, allContent, image, user) => async dispatch => {
   const res = await fetch(`/api/polls/${pollId}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      question
+      question,
+      options: allContent.join(","),
+      image
     })
   })
-  const poll = await res.json()
 
-  let formattedContentArray = []
-  allContent.map(content => {
-    let contentObj = {'content': content}
-    formattedContentArray.push(contentObj)
-  })
+  const data = await res.json()
 
   if (res.ok) {
     const formattedPoll = {
-      created_at: poll.created_at,
-      id: poll.id,
-      options: [...formattedContentArray],
-      question: question,
+      created_at: data.poll.created_at,
+      id: data.poll.id,
+      options: [...data.options],
+      question: data.poll.question,
       user: {...user},
-      user_id: poll.user_id,
+      user_id: data.poll.user_id,
     }
     dispatch(editPoll(formattedPoll))
-    return poll;
+    return data
   }
-  return poll
 }
+
 
 export const deleteOnePoll = (id) => async dispatch => {
   const deleted = await fetch(`/api/polls/${id}/`, {

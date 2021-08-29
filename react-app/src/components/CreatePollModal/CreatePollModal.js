@@ -38,24 +38,12 @@ const CreatePollForm = ({setShowModal}) => {
 
     if (data.errors) {
 			setErrors(data.errors);
-		}
-
-    // let optionData
-    // allContent.forEach( async (content) => {
-    //     optionData = await dispatch(
-    //     createOneOption(data.id, content, image)
-    //   )
-
-      // if (optionData) {
-      //   setErrors(errors.concat(optionData))
-      // }
-    // })
-
-		// if (!data.errors && !optionData) {
-		// 	setShowModal(false)
-		// }
+		} else {
+      setShowModal(false)
+    }
 	};
-  //TODO: FIX COUNTER
+
+
   let newOptionCount = optionCount
   const addOption = (e) => {
     e.preventDefault()
@@ -142,7 +130,6 @@ const CreatePollForm = ({setShowModal}) => {
 					  	type='text'
 					  	onChange={updateContent3}
 					  	value={content3}
-              // hidden={!optionCount === 3 || !optionCount === 4}
 					  	required></input>
             </div>}
             { showOption4 &&
@@ -153,7 +140,6 @@ const CreatePollForm = ({setShowModal}) => {
 					  	  type='text'
 					  	  onChange={updateContent4}
 					  	  value={content4}
-                // hidden={() => optionCount <= 2}
 					  	  required></input>
             </div>}
           <div className="add-option-button" onClick={addOption} hidden={optionCount >=4}>
