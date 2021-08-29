@@ -54,12 +54,13 @@ const CreatePollForm = ({setShowModal}) => {
 			setShowModal(false)
 		}
 	};
+  //TODO: FIX COUNTER
   let newOptionCount = 2
   const addOption = (e) => {
     e.preventDefault()
     newOptionCount +=1
     console.log('------------------------------------');
-    console.log(optionCount);
+    console.log(newOptionCount);
     console.log('------------------------------------');
     setOptionCount(newOptionCount)
 
