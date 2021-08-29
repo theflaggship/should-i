@@ -11,6 +11,9 @@ const CreatePollForm = ({setShowModal}) => {
   const [content2, setContent2] = useState('');
   const [content3, setContent3] = useState('');
   const [content4, setContent4] = useState('');
+  const [showOption3, setShowOption3] = useState(false)
+  const [showOption4, setShowOption4] = useState(false)
+  const [optionCount, setOptionCount] = useState(2)
   const [image, setImage] = useState(false);
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
@@ -18,8 +21,6 @@ const CreatePollForm = ({setShowModal}) => {
   useEffect(() => {
     dispatch(getPolls())
   }, [dispatch])
-
-  let optionCount = 2
 
 	const onCreate = async (e) => {
     const allContent = [content1, content2]
@@ -53,6 +54,24 @@ const CreatePollForm = ({setShowModal}) => {
 			setShowModal(false)
 		}
 	};
+  let newOptionCount = 2
+  const addOption = (e) => {
+    e.preventDefault()
+    newOptionCount +=1
+    console.log('------------------------------------');
+    console.log(optionCount);
+    console.log('------------------------------------');
+    setOptionCount(newOptionCount)
+
+    if (optionCount === 3) {
+      setShowOption3(true)
+    }
+    if (optionCount === 4) {
+      setShowOption3(true)
+      setShowOption4(true)
+    }
+  }
+
 
 	const updateQuestion= (e) => {
 		setQuestion(e.target.value);
@@ -115,6 +134,31 @@ const CreatePollForm = ({setShowModal}) => {
 					  	onChange={updateContent2}
 					  	value={content2}
 					  	required></input>
+          </div>
+          { showOption3 &&
+            <div className="option-container">
+					  <input
+					  	className='option-input'
+					  	placeholder=' Option 3'
+					  	type='text'
+					  	onChange={updateContent3}
+					  	value={content3}
+              // hidden={!optionCount === 3 || !optionCount === 4}
+					  	required></input>
+            </div>}
+            { showOption4 &&
+              <div className="option-container">
+					    <input
+					  	  className='option-input'
+					  	  placeholder=' Option 4'
+					  	  type='text'
+					  	  onChange={updateContent4}
+					  	  value={content4}
+                // hidden={() => optionCount <= 2}
+					  	  required></input>
+            </div>}
+          <div className="add-option-button" onClick={addOption} hidden={optionCount >=4}>
+            <i className="fas fa-plus-circle"></i>
           </div>
 				  <div className='create-button-container'>
 					  <button className='create-poll-button' type='submit'>
