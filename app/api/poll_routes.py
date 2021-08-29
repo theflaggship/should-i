@@ -10,7 +10,7 @@ from .auth_routes import validation_errors_to_error_messages
 
 poll_routes = Blueprint('polls', __name__)
 
-# Get all polls and options
+# -------------------- GET ALL POLLS AND OPTIONS -------------------------
 
 @poll_routes.route('/')
 def get_all_polls():
@@ -25,7 +25,7 @@ def get_all_polls():
     poll["user"] = user.to_dict()
   return {"polls": polls}
 
-# Create poll
+# -------------------- CREATE POLL -------------------------
 
 @poll_routes.route('/', methods=['POST'])
 @login_required
@@ -42,7 +42,7 @@ def create_poll():
     db.session.commit()
     return poll.to_dict()
 
-# Create option for poll
+# -------------------- GET OPTION FOR POLL -------------------------
 
 @poll_routes.route('/<int:id>/options/', methods=['POST'])
 def create_option(id):
@@ -62,7 +62,7 @@ def create_option(id):
     return {'errors': validation_errors_to_error_messages(errors)}, 401
 
 
-# Edit poll
+# -------------------- EDIT POLL -------------------------
 
 @poll_routes.route('/<int:id>/', methods=['PUT'])
 def edit_poll(id):
@@ -82,7 +82,7 @@ def edit_poll(id):
     errors = form.errors
     return {'errors': validation_errors_to_error_messages(errors)}, 401
 
-# Edit one option
+# -------------------- EDIT ONE OPTION -------------------------
 
 @poll_routes.route('/<int:poll_id>/options/<int:id>/', methods=['PUT'])
 def edit_option(id):
@@ -100,7 +100,7 @@ def edit_option(id):
     errors = form.errors
     return {'errors': validation_errors_to_error_messages(errors)}, 401
 
-# Delete poll
+# -------------------- DELETE POLL AND OPTIONS -------------------------
 
 @poll_routes.route('/<int:id>/', methods=['DELETE'])
 def delete_poll(id):
@@ -113,7 +113,7 @@ def delete_poll(id):
   db.session.commit()
   return {}, 204
 
-# Delete one option in poll
+# -------------------- DELETE ONE OPTION IN POLL -------------------------
 
 @poll_routes.route('/options/<int:id>/', methods=['DELETE'])
 def delete_option(id):
@@ -122,3 +122,16 @@ def delete_option(id):
   db.session.commit()
 
   return {}, 204
+
+# -------------------- GET ALL VOTES FOR A POLL -------------------------
+
+# -------------------- GET ALL VOTES FOR AN OPTION -------------------------
+
+# -------------------- CREATE A VOTE -------------------------
+
+# @poll_routes.route('/api/polls/:poll_id/options/:option_id/votes', methods=['POST'])
+# def add_vote():
+
+
+
+# -------------------- EDIT/CHANGE A VOTE -------------------------
