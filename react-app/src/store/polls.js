@@ -43,7 +43,7 @@ export const getUserPolls = (id) => async dispatch => {
   }
 }
 
-export const createOnePoll = (question, allContent, image, user) => async dispatch => {
+export const createOnePoll = (question, options, image, user) => async dispatch => {
   const res = await fetch('/api/polls/', {
     method: 'POST',
     headers: {
@@ -51,7 +51,7 @@ export const createOnePoll = (question, allContent, image, user) => async dispat
     },
     body: JSON.stringify({
       question,
-      options: allContent.join(","),
+      options: options.join(","),
       image
     })
   });
