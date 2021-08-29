@@ -5,9 +5,6 @@ import { editOnePoll, getPolls } from '../../store/polls';
 import { createOneOption } from '../../store/options';
 
 const EditPoll = ({poll, setShowModal}) => {
-  console.log('------------------------------------');
-  console.log(poll);
-  console.log('------------------------------------');
 	const [errors, setErrors] = useState([]);
 	const [question, setQuestion] = useState(poll.question);
   const [content1, setContent1] = useState('');
@@ -33,6 +30,8 @@ const EditPoll = ({poll, setShowModal}) => {
 			editOnePoll(
         poll.id,
 				question,
+        allContent,
+        user
 			)
 		);
 

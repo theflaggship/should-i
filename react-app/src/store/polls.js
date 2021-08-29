@@ -43,7 +43,7 @@ export const getUserPolls = (id) => async dispatch => {
   }
 }
 
-export const createOnePoll = (question) => async dispatch => {
+export const createOnePoll = (question, allContent, user) => async dispatch => {
   const res = await fetch('/api/polls/', {
     method: 'POST',
     headers: {
@@ -53,33 +53,29 @@ export const createOnePoll = (question) => async dispatch => {
       question
     })
   });
-  // const poll = await res.json()
-  // if (res.ok) {
-  //   const formattedPoll = {
-  //     created_at: poll.created_at,
-  //     id: poll.id,
-  //     options: [content],
-  //     question: poll.question,
-  //     user: {},
-  //     user_id: poll.user_id,
-  //   }
-  //   return
-  // }
+  const poll = await res.json()
+
+  let formattedContentArray = []
+  allContent.map(content => {
+    let contentObj = {'content': content}
+    formattedContentArray.push(contentObj)
+  })
+
   if (res.ok) {
-    const data = await res.json();
-    dispatch(createPoll(data))
-    return data
-  } else if (res.status < 500) {
-      const data = await res.json();
-      if (data) {
-        return data
-      }
-  } else {
-    return ['An error occurred. Try again.']
+    const formattedPoll = {
+      created_at: poll.created_at,
+      id: poll.id,
+      options: [...formattedContentArray],
+      question: poll.question,
+      user: {...user},
+      user_id: poll.user_id,
+    }
+    dispatch(createPoll(formattedPoll))
+    return poll;
   }
 }
 
-export const editOnePoll = (pollId, question) => async dispatch => {
+export const editOnePoll = (pollId, question, allContent, user) => async dispatch => {
   const res = await fetch(`/api/polls/${pollId}/`, {
     method: 'PUT',
     headers: {
@@ -90,8 +86,24 @@ export const editOnePoll = (pollId, question) => async dispatch => {
     })
   })
   const poll = await res.json()
+
+  let formattedContentArray = []
+  allContent.map(content => {
+    let contentObj = {'content': content}
+    formattedContentArray.push(contentObj)
+  })
+
   if (res.ok) {
-    dispatch(editPoll(poll))
+    const formattedPoll = {
+      created_at: poll.created_at,
+      id: poll.id,
+      options: [...formattedContentArray],
+      question: question,
+      user: {...user},
+      user_id: poll.user_id,
+    }
+    dispatch(editPoll(formattedPoll))
+    return poll;
   }
   return poll
 }
@@ -121,6 +133,13 @@ const pollsReducer = (state = {}, action) => {
         ...state,
         [action.poll.id]: action.poll
       };
+      return newState
+    }
+    case EDIT_POLL: {
+      const newState = {
+        ...state,
+        [action.poll.id]: action.poll
+      }
       return newState
     }
     case DELETE_POLL: {
