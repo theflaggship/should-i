@@ -31,6 +31,7 @@ const CreatePollForm = ({setShowModal}) => {
 			createOnePoll(
 				question,
         allContent,
+        image,
         user
 			)
 		);
@@ -39,35 +40,32 @@ const CreatePollForm = ({setShowModal}) => {
 			setErrors(data.errors);
 		}
 
-    let optionData
-    allContent.forEach( async (content) => {
-        optionData = await dispatch(
-        createOneOption(data.id, content, image)
-      )
+    // let optionData
+    // allContent.forEach( async (content) => {
+    //     optionData = await dispatch(
+    //     createOneOption(data.id, content, image)
+    //   )
 
-      if (optionData) {
-        setErrors(errors.concat(optionData))
-      }
-    })
+      // if (optionData) {
+      //   setErrors(errors.concat(optionData))
+      // }
+    // })
 
-		if (!data.errors && !optionData) {
-			setShowModal(false)
-		}
+		// if (!data.errors && !optionData) {
+		// 	setShowModal(false)
+		// }
 	};
   //TODO: FIX COUNTER
-  let newOptionCount = 2
+  let newOptionCount = optionCount
   const addOption = (e) => {
     e.preventDefault()
     newOptionCount +=1
-    console.log('------------------------------------');
-    console.log(newOptionCount);
-    console.log('------------------------------------');
     setOptionCount(newOptionCount)
 
-    if (optionCount === 3) {
+    if (newOptionCount === 3) {
       setShowOption3(true)
     }
-    if (optionCount === 4) {
+    if (newOptionCount === 4) {
       setShowOption3(true)
       setShowOption4(true)
     }

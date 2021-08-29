@@ -1,12 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getPolls, editOnePoll } from "../../store/polls"
-import { deleteOnePoll } from '../../store/polls';
+import { getPolls, editOnePoll} from "../../store/polls"
 import './UserHomePage.css'
-import CreatePollModal from '../CreatePollModal'
 import DeletePollModal from '../DeletePollModal';
 import EditPollModal from '../EditPollModal';
+import { createOneVote, getOptionVotes } from '../../store/votes';
 
 function HomePage() {
   const user = useSelector(state => state.session.user)
@@ -14,16 +13,9 @@ function HomePage() {
   const sortedPolls = polls.reverse()
   const dispatch = useDispatch();
 
-  const [editMode, setEditMode] = useState(false);
-  const [question, setQuestion] = useState('')
 
-  const toggleEdit = () => {
-    setEditMode(!editMode);
-  }
-
-  const handleSave = () => {
-    setEditMode(false);
-    dispatch(editOnePoll(user.id, question))
+  const handleVote = (optionId, pollId) => {
+    dispatch(createOneVote(optionId, pollId))
   }
 
   useEffect(() => {
@@ -50,8 +42,9 @@ function HomePage() {
               <div className="options-container">
                 {poll.options?.map((option) =>
                    option.image ?
-                   <img key={option.id} className="option-image" src={option.content} /> :
-                   <div key={option.id} className="option-string"> {option.content}</div>
+                   <img onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-image" src={option.content} />
+                   :
+                   <div onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-string"> {option.content}</div>
                 )}
               </div>
           </div>

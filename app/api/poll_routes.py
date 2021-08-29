@@ -25,41 +25,69 @@ def get_all_polls():
     poll["user"] = user.to_dict()
   return {"polls": polls}
 
-# -------------------- CREATE POLL -------------------------
+# # -------------------- CREATE POLL -------------------------
+
+# @poll_routes.route('/', methods=['POST'])
+# @login_required
+# def create_poll():
+#   user = current_user
+#   form = CreatePollForm()
+#   form['csrf_token'].data = request.cookies['csrf_token']
+#   if form.validate_on_submit():
+#     poll = Poll(
+#       user_id=user.id,
+#       question=form.data['question'],
+#     )
+#     db.session.add(poll)
+#     db.session.commit()
+#     options = poll.options
+#     print("======================")
+#     print(poll)
+#     print(options)
+#     print("======================")
+#     return poll.to_dict()
 
 @poll_routes.route('/', methods=['POST'])
 @login_required
 def create_poll():
   user = current_user
   form = CreatePollForm()
-  form['csrf_token'].data = request.cookies['csrf_token']
-  if form.validate_on_submit():
-    poll = Poll(
-      user_id=user.id,
-      question=form.data['question'],
-    )
-    db.session.add(poll)
-    db.session.commit()
-    return poll.to_dict()
-
-# -------------------- GET OPTION FOR POLL -------------------------
-
-@poll_routes.route('/<int:id>/options/', methods=['POST'])
-def create_option(id):
-  form = CreateOptionForm()
-  form['csrf_token'].data = request.cookies['csrf_token']
-  if form.validate_on_submit():
+  question = form.data['question']
+  options = form.data['options'].split(",")
+  poll = Poll(
+    user_id=user.id,
+    question=form.data['question'],
+  )
+  db.session.add(poll)
+  db.session.commit()
+  for option in options:
     option = Option(
-      poll_id=id,
-      content=form.data['content'],
+      poll_id=poll.id,
+      content=option,
       image=form.data['image']
     )
     db.session.add(option)
-    db.session.commit()
-    return option.to_dict()
-  if form.errors:
-    errors = form.errors
-    return {'errors': validation_errors_to_error_messages(errors)}, 401
+  db.session.commit()
+  return {"poll":poll.to_dict(), "options": [option.to_dict() for option in poll.options]}
+
+# -------------------- CREATE OPTION FOR POLL -------------------------
+
+# @poll_routes.route('/<int:id>/options/', methods=['POST'])
+# def create_option(id):
+#   form = CreateOptionForm()
+#   form['csrf_token'].data = request.cookies['csrf_token']
+#   if form.validate_on_submit():
+#     option = Option(
+#       poll_id=id,
+#       content=form.data['content'],
+#       image=form.data['image']
+#     )
+#     db.session.add(option)
+#     db.session.commit()
+#     return option.to_dict()
+#   if form.errors:
+#     errors = form.errors
+#     return {'errors': validation_errors_to_error_messages(errors)}, 401
 
 
 # -------------------- EDIT POLL -------------------------
@@ -67,9 +95,6 @@ def create_option(id):
 @poll_routes.route('/<int:id>/', methods=['PUT'])
 def edit_poll(id):
   poll = Poll.query.get(id)
-  print("++++++++++++++++++++++")
-  print(poll.to_dict())
-  print("++++++++++++++++++++++")
   form = CreatePollForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
@@ -127,11 +152,23 @@ def delete_option(id):
 
 # -------------------- GET ALL VOTES FOR AN OPTION -------------------------
 
+@poll_routes.route('/api/polls/<int:poll_id>/options/<int:option_id>/votes')
+def get_option_votes(option_id):
+  votes = Vote.query.filter(Vote.option_id == option_id).all()
+  return {vote.id: vote.to_dict() for vote in votes}
+
+
 # -------------------- CREATE A VOTE -------------------------
 
-# @poll_routes.route('/api/polls/:poll_id/options/:option_id/votes', methods=['POST'])
-# def add_vote():
-
-
+@poll_routes.route('/api/polls/<int:poll_id>/options/<int:option_id>/votes', methods=['POST'])
+def add_vote(option_id):
+  user = current_user
+  vote = Vote(
+    user_id=user.id,
+    option_id=option_id,
+  )
+  db.session.add(vote)
+  db.session.commit()
+  return vote.to_dict()
 
 # -------------------- EDIT/CHANGE A VOTE -------------------------
