@@ -15,9 +15,9 @@ export const getOptionVotes = (pollId, optionId) => async dispatch => {
   const res = await fetch(`/api/polls/${pollId}/options/${optionId}/votes/`)
 
   if (res.ok) {
-    const votes = await res.json()
-    dispatch(loadVotes(votes.votes))
-    return res
+    const data = await res.json()
+    dispatch(loadVotes(data.votes))
+    return data
   }
 }
 
