@@ -6,5 +6,4 @@ class CreateOptionForm(FlaskForm):
   content = StringField('Content', validators=[DataRequired()])
   image = BooleanField('Image')
 
-  def update_option(self, new_content):
-    self.content = new_content
+  

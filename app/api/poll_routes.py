@@ -64,7 +64,38 @@ def create_option(id):
 
 # Edit poll
 
+@poll_routes.route('/<int:id>/', methods=['PUT'])
+def edit_poll(id):
+  poll = Poll.query.get(id)
+  form = CreatePollForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    poll.question = form.data['question']
 
+    db.session.commit()
+    return {**poll.to_dict()}
+
+  if form.errors:
+    errors = form.errors
+    return {'errors': validation_errors_to_error_messages(errors)}, 401
+
+# Edit one option
+
+@poll_routes.route('/<int:poll_id>/options/<int:id>/', methods=['PUT'])
+def edit_option(id):
+  option = Option.query.get(id)
+  form = CreateOptionForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    Option.content = form.data['question']
+    Option.image = form.data['image']
+
+    db.session.commit()
+    return {**option.to_dict()}
+
+  if form.errors:
+    errors = form.errors
+    return {'errors': validation_errors_to_error_messages(errors)}, 401
 
 # Delete poll
 
