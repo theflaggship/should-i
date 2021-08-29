@@ -1,17 +1,30 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getPolls } from "../../store/polls"
+import { getPolls, editOnePoll } from "../../store/polls"
 import { deleteOnePoll } from '../../store/polls';
 import './UserHomePage.css'
 import CreatePollModal from '../CreatePollModal'
 import DeletePollModal from '../DeletePollModal';
+import EditPollModal from '../EditPollModal';
 
 function HomePage() {
   const user = useSelector(state => state.session.user)
   const polls = useSelector(state => Object.values(state.polls))
   const sortedPolls = polls.reverse()
   const dispatch = useDispatch();
+
+  const [editMode, setEditMode] = useState(false);
+  const [question, setQuestion] = useState('')
+
+  const toggleEdit = () => {
+    setEditMode(!editMode);
+  }
+
+  const handleSave = () => {
+    setEditMode(false);
+    dispatch(editOnePoll(user.id, question))
+  }
 
   useEffect(() => {
     dispatch(getPolls())
@@ -27,7 +40,10 @@ function HomePage() {
                 </div>
                 <div className="poll-username">{poll?.user?.username}</div>
                 {(poll.user_id === user.id) &&
-                  <DeletePollModal pollId={poll?.id} />
+                  <>
+                    <DeletePollModal pollId={poll?.id} />
+                    <EditPollModal poll={poll} />
+                  </>
                 }
             </div>
             <div key={poll?.id}>{poll?.question}</div>

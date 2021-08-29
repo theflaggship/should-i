@@ -1,6 +1,7 @@
 const LOAD_POLLS = 'polls/GET_POLLS'
 const CREATE_POLL = 'polls/CREATE_POLL'
 const DELETE_POLL = 'polls/DELETE_POLL'
+const EDIT_POLL = 'polls/EDIT_POLL'
 
 const loadPolls = polls => ({
   type: LOAD_POLLS,
@@ -14,6 +15,11 @@ const createPoll = poll => ({
 
 const deletePoll = poll => ({
   type: DELETE_POLL,
+  poll
+})
+
+const editPoll = poll => ({
+  type: EDIT_POLL,
   poll
 })
 
@@ -44,7 +50,6 @@ export const createOnePoll = (question) => async dispatch => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      // user_id: userId,
       question
     })
   });
@@ -53,7 +58,7 @@ export const createOnePoll = (question) => async dispatch => {
   //   const formattedPoll = {
   //     created_at: poll.created_at,
   //     id: poll.id,
-  //     options: [],
+  //     options: [content],
   //     question: poll.question,
   //     user: {},
   //     user_id: poll.user_id,
@@ -72,6 +77,23 @@ export const createOnePoll = (question) => async dispatch => {
   } else {
     return ['An error occurred. Try again.']
   }
+}
+
+export const editOnePoll = (pollId, question) => async dispatch => {
+  const res = await fetch(`/api/polls/${pollId}/`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      question
+    })
+  })
+  const poll = await res.json()
+  if (res.ok) {
+    dispatch(editPoll(poll))
+  }
+  return poll
 }
 
 export const deleteOnePoll = (id) => async dispatch => {
@@ -103,9 +125,6 @@ const pollsReducer = (state = {}, action) => {
     }
     case DELETE_POLL: {
       const newState = {...state};
-      console.log('------------------------------------');
-      console.log(newState);
-      console.log('------------------------------------');
       delete newState[action.poll]
       return newState
     }

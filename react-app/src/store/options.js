@@ -1,10 +1,15 @@
 const CREATE_OPTION = 'options/CREATE_OPTION'
+const EDIT_OPTION = 'options/EDIT_OPTION'
 
 const createOption = option => ({
   type: CREATE_OPTION,
   option
 })
 
+const editOption = option => ({
+  type: EDIT_OPTION,
+  option
+})
 export const createOneOption = (poll_id, content, image) => async dispatch => {
   const res = await fetch(`/api/polls/${poll_id}/options/`, {
     method: 'POST',
@@ -30,6 +35,25 @@ export const createOneOption = (poll_id, content, image) => async dispatch => {
   } else {
     return ['An error occurred. Try again.']
   }
+}
+
+export const editOneOption = (option_id, content, image, poll_id) => async dispatch => {
+  const res = await fetch(`/api/polls/${poll_id}/options/${option_id}/`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      content,
+      image
+    })
+  })
+  const option = await res.json()
+
+  if (res.ok) {
+    dispatch(editOption(option))
+  }
+  return option
 }
 const initialState = {options: []}
 
