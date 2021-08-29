@@ -19,7 +19,6 @@ const EditPoll = ({poll, setShowModal}) => {
     dispatch(getPolls())
   }, [dispatch])
 
-  let optionCount = 2
 
 	const onEdit = async (e) => {
     const allContent = [content1, content2]
@@ -31,30 +30,16 @@ const EditPoll = ({poll, setShowModal}) => {
         poll.id,
 				question,
         allContent,
+        image,
         user
 			)
 		);
 
-    setShowModal(false)
-
     if (data.errors) {
 			setErrors(data.errors);
-		}
-
-    // let optionData
-    // allContent.forEach( async (content) => {
-    //     optionData = await dispatch(
-    //     createOneOption(data.id, content, image)
-    //   )
-
-    //   if (optionData) {
-    //     setErrors(errors.concat(optionData))
-    //   }
-    // })
-
-		// if (!data.errors && !optionData) {
-		// 	setShowModal(false)
-		// }
+		} else {
+      setShowModal(false)
+    }
 	};
 
 	const updateQuestion= (e) => {

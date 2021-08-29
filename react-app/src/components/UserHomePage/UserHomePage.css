@@ -32,6 +32,11 @@
 
 .option-image {
   width: 200px;
+  cursor: pointer;
+}
+
+.option-string {
+  cursor: pointer;
 }
 
 .user-info-container {

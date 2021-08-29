@@ -31,43 +31,29 @@ const CreatePollForm = ({setShowModal}) => {
 			createOnePoll(
 				question,
         allContent,
+        image,
         user
 			)
 		);
 
     if (data.errors) {
 			setErrors(data.errors);
-		}
-
-    let optionData
-    allContent.forEach( async (content) => {
-        optionData = await dispatch(
-        createOneOption(data.id, content, image)
-      )
-
-      if (optionData) {
-        setErrors(errors.concat(optionData))
-      }
-    })
-
-		if (!data.errors && !optionData) {
-			setShowModal(false)
-		}
+		} else {
+      setShowModal(false)
+    }
 	};
-  //TODO: FIX COUNTER
-  let newOptionCount = 2
+
+
+  let newOptionCount = optionCount
   const addOption = (e) => {
     e.preventDefault()
     newOptionCount +=1
-    console.log('------------------------------------');
-    console.log(newOptionCount);
-    console.log('------------------------------------');
     setOptionCount(newOptionCount)
 
-    if (optionCount === 3) {
+    if (newOptionCount === 3) {
       setShowOption3(true)
     }
-    if (optionCount === 4) {
+    if (newOptionCount === 4) {
       setShowOption3(true)
       setShowOption4(true)
     }
@@ -144,7 +130,6 @@ const CreatePollForm = ({setShowModal}) => {
 					  	type='text'
 					  	onChange={updateContent3}
 					  	value={content3}
-              // hidden={!optionCount === 3 || !optionCount === 4}
 					  	required></input>
             </div>}
             { showOption4 &&
@@ -155,7 +140,6 @@ const CreatePollForm = ({setShowModal}) => {
 					  	  type='text'
 					  	  onChange={updateContent4}
 					  	  value={content4}
-                // hidden={() => optionCount <= 2}
 					  	  required></input>
             </div>}
           <div className="add-option-button" onClick={addOption} hidden={optionCount >=4}>

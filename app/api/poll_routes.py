@@ -25,7 +25,8 @@ def get_all_polls():
     poll["user"] = user.to_dict()
   return {"polls": polls}
 
-# -------------------- CREATE POLL -------------------------
+# # -------------------- CREATE POLL AND OPTIONS -------------------------
+
 
 @poll_routes.route('/', methods=['POST'])
 @login_required
@@ -33,6 +34,8 @@ def create_poll():
   user = current_user
   form = CreatePollForm()
   form['csrf_token'].data = request.cookies['csrf_token']
+  question = form.data['question']
+  options = form.data['options'].split(",")
   if form.validate_on_submit():
     poll = Poll(
       user_id=user.id,
@@ -40,26 +43,15 @@ def create_poll():
     )
     db.session.add(poll)
     db.session.commit()
-    return poll.to_dict()
-
-# -------------------- GET OPTION FOR POLL -------------------------
-
-@poll_routes.route('/<int:id>/options/', methods=['POST'])
-def create_option(id):
-  form = CreateOptionForm()
-  form['csrf_token'].data = request.cookies['csrf_token']
-  if form.validate_on_submit():
-    option = Option(
-      poll_id=id,
-      content=form.data['content'],
-      image=form.data['image']
-    )
-    db.session.add(option)
-    db.session.commit()
-    return option.to_dict()
-  if form.errors:
-    errors = form.errors
-    return {'errors': validation_errors_to_error_messages(errors)}, 401
+    for option in options:
+      option = Option(
+        poll_id=poll.id,
+        content=option,
+        image=form.data['image']
+      )
+      db.session.add(option)
+  db.session.commit()
+  return {"poll":poll.to_dict(), "options": [option.to_dict() for option in poll.options]}
 
 
 # -------------------- EDIT POLL -------------------------
@@ -67,16 +59,21 @@ def create_option(id):
 @poll_routes.route('/<int:id>/', methods=['PUT'])
 def edit_poll(id):
   poll = Poll.query.get(id)
-  print("++++++++++++++++++++++")
-  print(poll.to_dict())
-  print("++++++++++++++++++++++")
   form = CreatePollForm()
+  question = form.data['question']
+  oldOptions = Option.query.filter(Option.poll_id == id).all()
+  newOptions = form.data['options'].split(",")
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
-    poll.question = form.data['question']
+    poll.question = question
 
-    db.session.commit()
-    return {**poll.to_dict()}
+    for oldOption in oldOptions:
+      for newOption in newOptions:
+        oldOption.content=newOption
+        image=form.data['image']
+
+  db.session.commit()
+  return {"poll":poll.to_dict(), "options": [option.to_dict() for option in poll.options]}
 
   if form.errors:
     errors = form.errors
@@ -127,11 +124,23 @@ def delete_option(id):
 
 # -------------------- GET ALL VOTES FOR AN OPTION -------------------------
 
+@poll_routes.route('/api/polls/<int:poll_id>/options/<int:option_id>/votes')
+def get_option_votes(option_id):
+  votes = Vote.query.filter(Vote.option_id == option_id).all()
+  return {vote.id: vote.to_dict() for vote in votes}
+
+
 # -------------------- CREATE A VOTE -------------------------
 
-# @poll_routes.route('/api/polls/:poll_id/options/:option_id/votes', methods=['POST'])
-# def add_vote():
-
-
+@poll_routes.route('/api/polls/<int:poll_id>/options/<int:option_id>/votes', methods=['POST'])
+def add_vote(option_id):
+  user = current_user
+  vote = Vote(
+    user_id=user.id,
+    option_id=option_id,
+  )
+  db.session.add(vote)
+  db.session.commit()
+  return vote.to_dict()
 
 # -------------------- EDIT/CHANGE A VOTE -------------------------
