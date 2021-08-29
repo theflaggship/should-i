@@ -1,0 +1,12 @@
+.edit-poll-icon {
+  position: absolute;
+  cursor: pointer;
+  margin-left: 370px;
+  margin-bottom: 50px;
+  z-index: 1;
+}
+
+.fa-edit {
+  color: black;
+  z-index: 1;
+}
