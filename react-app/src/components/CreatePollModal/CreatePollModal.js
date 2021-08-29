@@ -29,7 +29,8 @@ const CreatePollForm = ({setShowModal}) => {
 		const data = await dispatch(
 			createOnePoll(
 				question,
-        allContent
+        allContent,
+        user
 			)
 		);
 

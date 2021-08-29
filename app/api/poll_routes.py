@@ -67,6 +67,9 @@ def create_option(id):
 @poll_routes.route('/<int:id>/', methods=['PUT'])
 def edit_poll(id):
   poll = Poll.query.get(id)
+  print("++++++++++++++++++++++")
+  print(poll.to_dict())
+  print("++++++++++++++++++++++")
   form = CreatePollForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():

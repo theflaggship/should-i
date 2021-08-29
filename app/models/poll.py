@@ -19,5 +19,5 @@ class Poll(db.Model):
       'id': self.id,
       'user_id': self.user_id,
       'question': self.question,
-      'created_at': self.created_at
+      'created_at': self.created_at,
     }
