@@ -97,12 +97,12 @@ const CreatePollForm = ({setShowModal}) => {
 	// 	setContent4(e.target.value);
 	// };
 
-  const updateImage = async (e) => {
+  const updateImage = (e) => {
     setImage(e.target.checked)
   }
 
-  const updateQuestion = async (e) => {
-    setQuestion(e.target.checked)
+  const updateQuestion = (e) => {
+    setQuestion(e.target.value)
   }
 
 	return (

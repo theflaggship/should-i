@@ -51,8 +51,8 @@ def create_poll():
         image=form.data['image']
       )
       db.session.add(option)
-  db.session.commit()
-  return {"poll":poll.to_dict(), "options": [option.to_dict() for option in poll.options]}
+    db.session.commit()
+  return {"poll": poll.to_dict(), "options": [option.to_dict() for option in poll.options]}
 
 
 # -------------------- EDIT POLL -------------------------
