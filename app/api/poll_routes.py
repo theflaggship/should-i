@@ -1,6 +1,7 @@
 from ..models.db import db
 from ..models.poll import Poll
 from ..models.option import Option
+from ..models.vote import Vote
 from ..models.user import User
 from flask import Blueprint, request
 from flask_login import current_user, login_required
@@ -50,8 +51,8 @@ def create_poll():
         image=form.data['image']
       )
       db.session.add(option)
-  db.session.commit()
-  return {"poll":poll.to_dict(), "options": [option.to_dict() for option in poll.options]}
+    db.session.commit()
+  return {"poll": poll.to_dict(), "options": [option.to_dict() for option in poll.options]}
 
 
 # -------------------- EDIT POLL -------------------------
@@ -124,7 +125,7 @@ def delete_option(id):
 
 # -------------------- GET ALL VOTES FOR AN OPTION -------------------------
 
-@poll_routes.route('/api/polls/<int:poll_id>/options/<int:option_id>/votes')
+@poll_routes.route('/api/polls/<int:poll_id>/options/<int:option_id>/votes/')
 def get_option_votes(option_id):
   votes = Vote.query.filter(Vote.option_id == option_id).all()
   return {vote.id: vote.to_dict() for vote in votes}
@@ -132,7 +133,7 @@ def get_option_votes(option_id):
 
 # -------------------- CREATE A VOTE -------------------------
 
-@poll_routes.route('/api/polls/<int:poll_id>/options/<int:option_id>/votes', methods=['POST'])
+@poll_routes.route('/api/polls/<int:poll_id>/options/<int:option_id>/votes/', methods=['POST'])
 def add_vote(option_id):
   user = current_user
   vote = Vote(
