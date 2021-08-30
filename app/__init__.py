@@ -9,6 +9,7 @@ from .models import db, User, Poll
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.poll_routes import poll_routes
+from .api.vote_routes import vote_routes
 
 from .seeds import seed_commands
 
@@ -35,6 +36,7 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(poll_routes, url_prefix='/api/polls')
+app.register_blueprint(vote_routes, url_prefix='/api/votes')
 db.init_app(app)
 Migrate(app, db)
 

@@ -15,7 +15,7 @@ class Vote(db.Model):
   def to_dict(self):
     return {
       "id": self.id,
-      "user.id": self.user_id,
-      "option.id": self.option_id,
+      "user_id": self.user_id,
+      "option_id": self.option_id,
       "created_at": self.created_at
     }

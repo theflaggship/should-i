@@ -135,13 +135,15 @@ def delete_option(id):
 @poll_routes.route('/api/polls/<int:poll_id>/options/<int:option_id>/votes/')
 def get_option_votes(option_id):
   votes = Vote.query.filter(Vote.option_id == option_id).all()
-  return {vote.id: vote.to_dict() for vote in votes}
+  option = Option.query.get(option_id)
+  return {"option": option.to_dict(), "votes": [vote.to_dict() for vote in votes]}
 
 
 # -------------------- CREATE A VOTE -------------------------
 
-@poll_routes.route('/api/polls/<int:poll_id>/options/<int:option_id>/votes/', methods=['POST'])
-def add_vote(option_id):
+@poll_routes.route('/<int:poll_id>/options/<int:option_id>/votes/', methods=['POST'])
+# @login_required
+def add_vote(option_id, poll_id):
   user = current_user
   vote = Vote(
     user_id=user.id,
