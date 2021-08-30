@@ -11,13 +11,23 @@ const createVote = vote => ({
   vote
 })
 
+export const getAllVotes = () => async dispatch => {
+  const res = await fetch('api/votes/')
+
+  if (res.ok) {
+    const votes = await res.json()
+    dispatch(loadVotes(votes))
+    return res
+  }
+}
+
 export const getOptionVotes = (pollId, optionId) => async dispatch => {
   const res = await fetch(`/api/polls/${pollId}/options/${optionId}/votes/`)
 
   if (res.ok) {
-    const data = await res.json()
-    dispatch(loadVotes(data.votes))
-    return data
+    const votes = await res.json()
+    dispatch(loadVotes(votes.votes))
+    return res
   }
 }
 
@@ -27,12 +37,9 @@ export const createOneVote = (optionId, pollId) => async dispatch => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      optionId,
-      pollId
-    })
   })
   const vote = await res.json()
+
 
   dispatch(createVote(vote))
   return vote
@@ -42,16 +49,12 @@ const votesReducer = (state = {}, action) => {
   if (!action) return state;
   switch(action.type) {
     case LOAD_VOTES: {
-      const newState = {}
-      action.votes.forEach(vote => {
-        newState[vote.id] = vote
-      })
-      return newState
+      return { ...state, ...action.votes}
     }
     case CREATE_VOTE: {
       const newState = {
         ...state,
-        [action.vote.id]: action.vote
+        votes: [...state.votes, action.vote]
       }
       return newState
     }
