@@ -87,6 +87,9 @@ export const editOnePoll = (pollId, question, options, image, user) => async dis
   })
 
   const data = await res.json()
+  console.log('------------------------------------');
+  console.log(data.data);
+  console.log('------------------------------------');
 
   if (res.ok) {
     const formattedPoll = {

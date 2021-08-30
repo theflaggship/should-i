@@ -72,6 +72,7 @@ def edit_poll(id):
     for option in oldOptions:
       db.session.delete(option)
       db.session.commit()
+
     for option in newOptions:
       option = Option(
         poll_id=poll.id,
@@ -80,7 +81,7 @@ def edit_poll(id):
       )
       db.session.add(option)
     db.session.commit()
-  return {"poll":poll.to_dict(), "options": [option.to_dict() for option in oldOptions]}
+  return {"poll": poll.to_dict(), "options": [option.to_dict() for option in poll.options]}
 
   if form.errors:
     errors = form.errors
