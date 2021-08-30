@@ -27,8 +27,13 @@ export const createOneVote = (optionId, pollId) => async dispatch => {
     headers: {
       'Content-Type': 'application/json'
     },
+    body: JSON.stringify({
+      optionId,
+      pollId
+    })
   })
   const vote = await res.json()
+
   dispatch(createVote(vote))
   return vote
 }
