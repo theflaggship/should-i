@@ -7,7 +7,7 @@ import DeletePollModal from '../DeletePollModal';
 
 function UserPollsPage() {
   const user = useSelector(state => state.session.user)
-  const polls = useSelector(state => Object.values(state.polls))
+  const polls = useSelector(state => [...Object.values(state.polls)])
   const sortedPolls = polls.reverse()
   const dispatch = useDispatch();
 
@@ -21,12 +21,10 @@ function UserPollsPage() {
           <div className="poll-container">
             <div className="user-info-container">
                 <div className="profile-pic-container">
-                  <img className="profile-pic" src={poll?.user?.profile_pic}/>
+                  <img className="profile-pic" src={user?.profile_pic}/>
                 </div>
-                <div className="poll-username">{poll?.user?.username}</div>
-                {(poll.user_id === user.id) &&
+                <div className="poll-username">{user?.username}</div>
                   <DeletePollModal pollId={poll?.id} />
-                }
             </div>
             <div key={poll?.id}>{poll?.question}</div>
               <div className="options-container">

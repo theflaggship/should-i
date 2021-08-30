@@ -1,3 +1,8 @@
+from ..models.db import db
+from ..models.poll import Poll
+from ..models.option import Option
+from ..models.vote import Vote
+from ..models.user import User
 from flask import Blueprint, jsonify
 from flask_login import login_required
 from app.models import User
@@ -26,6 +31,8 @@ def user(id):
 @login_required
 def get_user_polls(id):
     polls_query = Poll.query.filter(Poll.user_id == id).all()
+    print("+=++++++++======+++++=======")
+    print(polls_query)
     polls = [poll.to_dict() for poll in polls_query]
     for poll in polls:
       options = Option.query.filter(
