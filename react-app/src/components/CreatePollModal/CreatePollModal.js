@@ -25,6 +25,9 @@ const CreatePollForm = ({setShowModal}) => {
 
 	const onCreate = async (e) => {
 		e.preventDefault();
+    console.log('------------------------------------');
+    console.log(options);
+    console.log('------------------------------------');
 		const data = await dispatch(
 			createOnePoll(
 				question,
@@ -125,7 +128,7 @@ const CreatePollForm = ({setShowModal}) => {
               className='image-checkbox'
               onChange={updateImage}
               value={image}></input>
-          {options.map((content, index) => {
+          {options.map((option, index) => {
             return (
               <div>
                 <input
