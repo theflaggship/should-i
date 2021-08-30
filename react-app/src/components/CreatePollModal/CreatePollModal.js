@@ -44,7 +44,7 @@ const CreatePollForm = ({setShowModal}) => {
 
   const removeOption = (index) => {
     if (options.length > 2) {
-      setOptions(options.splice(index))
+      setOptions([...options.slice(0, index), ...options.slice(index + 1)])
     }
   }
 
