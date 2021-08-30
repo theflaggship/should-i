@@ -63,7 +63,11 @@ def edit_poll(id):
   form = CreatePollForm()
   question = form.data['question']
   oldOptions = Option.query.filter(Option.poll_id == id).all()
+  print("OLDOPTIONS-------------")
+  print(oldOptions)
   newOptions = form.data['options'].split(",")
+  print("NEWOPTIONS-------------")
+  print(newOptions)
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     poll.question = question
@@ -74,7 +78,7 @@ def edit_poll(id):
         image=form.data['image']
 
   db.session.commit()
-  return {"poll":poll.to_dict(), "options": [option.to_dict() for option in poll.options]}
+  return {"poll":poll.to_dict(), "options": [option.to_dict() for option in oldOptions]}
 
   if form.errors:
     errors = form.errors

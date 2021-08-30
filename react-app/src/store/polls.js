@@ -38,7 +38,10 @@ export const getUserPolls = (id) => async dispatch => {
 
   if (res.ok) {
     const polls = await res.json()
-    dispatch(loadPolls(polls.polls))
+    console.log('------------------------------------');
+    console.log(polls);
+    console.log('------------------------------------');
+    dispatch(loadPolls(polls))
     return res
   }
 }
@@ -73,7 +76,10 @@ export const createOnePoll = (question, options, image, user) => async dispatch 
 }
 
 
-export const editOnePoll = (pollId, question, allContent, image, user) => async dispatch => {
+export const editOnePoll = (pollId, question, options, image, user) => async dispatch => {
+  console.log('------------------------------------');
+  console.log(options);
+  console.log('------------------------------------');
   const res = await fetch(`/api/polls/${pollId}/`, {
     method: 'PUT',
     headers: {
@@ -81,12 +87,13 @@ export const editOnePoll = (pollId, question, allContent, image, user) => async 
     },
     body: JSON.stringify({
       question,
-      options: allContent.join(","),
+      options: options.join(","),
       image
     })
   })
 
   const data = await res.json()
+  
 
   if (res.ok) {
     const formattedPoll = {

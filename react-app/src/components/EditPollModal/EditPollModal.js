@@ -5,12 +5,13 @@ import { editOnePoll, getPolls } from '../../store/polls';
 import { createOneOption } from '../../store/options';
 
 const EditPoll = ({poll, setShowModal}) => {
+  let optionsArray = []
+  poll.options.forEach(option => {
+    optionsArray.push(option.content)
+  })
 	const [errors, setErrors] = useState([]);
 	const [question, setQuestion] = useState(poll.question);
-  const [content1, setContent1] = useState('');
-  const [content2, setContent2] = useState('');
-  const [content3, setContent3] = useState('');
-  const [content4, setContent4] = useState('');
+  const [options, setOptions] = useState(optionsArray);
   const [image, setImage] = useState(false);
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
@@ -21,15 +22,12 @@ const EditPoll = ({poll, setShowModal}) => {
 
 
 	const onEdit = async (e) => {
-    const allContent = [content1, content2]
-    if (content3 !== '') allContent.push(content3)
-    if (content4 !== '') allContent.push(content4)
 		e.preventDefault();
 		const data = await dispatch(
 			editOnePoll(
         poll.id,
 				question,
-        allContent,
+        options,
         image,
         user
 			)
@@ -42,27 +40,35 @@ const EditPoll = ({poll, setShowModal}) => {
     }
 	};
 
+  const updateOption = (value, index) => {
+    setOptions([
+      ...options.slice(0, index),
+      value,
+      ...options.slice(index + 1)
+    ])
+  }
+
+  const removeOption = (index) => {
+    if (options.length > 2) {
+      setOptions(options.splice(index))
+    }
+  }
+
+  const addOption = () => {
+    if (options.length < 4) {
+      setOptions([
+        ...options,
+        ''
+      ])
+    }
+  }
+
 	const updateQuestion= (e) => {
 		setQuestion(e.target.value);
 	};
 
-  const updateContent1= (e) => {
-		setContent1(e.target.value);
-	};
 
-  const updateContent2= (e) => {
-		setContent2(e.target.value);
-	};
-
-  const updateContent3= (e) => {
-		setContent3(e.target.value);
-	};
-
-  const updateContent4= (e) => {
-		setContent4(e.target.value);
-	};
-
-  const updateImage = async (e) => {
+  const updateImage = (e) => {
     setImage(e.target.checked)
 }
 
@@ -86,24 +92,21 @@ const EditPoll = ({poll, setShowModal}) => {
               className='image-checkbox'
               onChange={updateImage}
               value={image}></input>
-          <div className="option-container">
-					  <input
-					  	className='option-input'
-					  	placeholder=' Option 1'
-					  	type='text'
-					  	onChange={updateContent1}
-					  	value={content1}
-					  	required></input>
-          </div>
-          <div className="option-container">
-					  <input
-					  	className='option-input'
-					  	placeholder=' Option 2'
-					  	type='text'
-					  	onChange={updateContent2}
-					  	value={content2}
-					  	required></input>
-          </div>
+          {options.map((option, index) => {
+            return (
+              <div>
+                <input
+                  value={options[index]}
+                  onChange={(e) => updateOption(e.target.value, index)}/>
+                <div className="delete-option-button" onClick={() => removeOption(index)} hidden={options.length < 3}>
+                  <i className="fas fa-minus-circle"></i>
+                </div>
+              </div>
+            )
+          })}
+            <div className="add-option-button" onClick={() => addOption()} hidden={options.length >= 4}>
+              <i className="fas fa-plus-circle"></i>
+            </div>
 				  <div className='create-button-container'>
 					  <button className='edit-poll-button' type='submit'>
 					  	Save
