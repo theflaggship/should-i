@@ -48,7 +48,10 @@ function HomePage() {
                     <img onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-image" src={option.content} />
                   </div>
                   :
-                   <div onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-string"> {option.content}</div>
+                  <>
+                    <div onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-string"> {option.content}</div>
+                    <div>{option.votes.length}</div>
+                  </>
                 )}
               </div>
           </div>

@@ -21,8 +21,10 @@ def get_all_polls():
     options = Option.query.filter(
       Option.poll_id == poll["id"]).all()
     poll["options"] = [option.to_dict() for option in options]
-    for option in options:
-      votes = Vote.query.filter(Vote.option_id == option.id).all()
+    for option in poll["options"]:
+      votes = Vote.query.filter(Vote.option_id == option["id"]).all()
+      print("===================")
+      print(votes)
       option["votes"] = [vote.to_dict() for vote in votes]
     user = User.query.filter(
        User.id == poll["user_id"]).first()
@@ -146,14 +148,24 @@ def get_option_votes(option_id):
 
 @poll_routes.route('/<int:poll_id>/options/<int:option_id>/votes/', methods=['POST'])
 # @login_required
-def add_vote(option_id, poll_id):
+def cast_vote(option_id, poll_id):
   user = current_user
-  vote = Vote(
+  poll = Poll.query.get(poll_id)
+
+  for option in poll.options:
+    for vote in option.votes:
+
+      if vote.user_id == user.id:
+        vote.option_id = option_id
+        db.session.commit()
+        return vote.to_dict()
+
+  newVote = Vote(
     user_id=user.id,
     option_id=option_id,
   )
-  db.session.add(vote)
+  db.session.add(newVote)
   db.session.commit()
-  return vote.to_dict()
+  return newVote.to_dict()
 
 # -------------------- EDIT/CHANGE A VOTE -------------------------
