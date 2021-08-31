@@ -3,7 +3,7 @@ from ..models.poll import Poll
 from ..models.option import Option
 from ..models.vote import Vote
 from ..models.user import User
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_required
 from ..forms.poll_form import CreatePollForm
 from ..forms.option_form import CreateOptionForm
@@ -146,7 +146,7 @@ def get_option_votes(option_id):
 
 # -------------------- CREATE A VOTE -------------------------
 
-@poll_routes.route('/<int:poll_id>/options/<int:option_id>/votes/', methods=['POST'])
+@poll_routes.route('/<int:poll_id>/options/<int:option_id>/votes/', methods=['POST', 'DELETE'])
 # @login_required
 def cast_vote(option_id, poll_id):
   user = current_user
@@ -154,6 +154,11 @@ def cast_vote(option_id, poll_id):
 
   for option in poll.options:
     for vote in option.votes:
+
+      if vote.option_id == option_id and vote.user_id == user.id:
+        db.session.delete(vote)
+        db.session.commit()
+        return {"message": "Delete Success"}
 
       if vote.user_id == user.id:
         vote.option_id = option_id

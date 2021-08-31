@@ -1,5 +1,6 @@
 const LOAD_VOTES = 'votes/LOAD_VOTES'
 const CREATE_VOTE = 'votes/CREATE_VOTE'
+const DELETE_VOTE = 'votes/DELETE_VOTE'
 
 const loadVotes = votes => ({
   type: LOAD_VOTES,
@@ -8,6 +9,11 @@ const loadVotes = votes => ({
 
 const createVote = vote => ({
   type: CREATE_VOTE,
+  vote
+})
+
+const deleteVote = vote => ({
+  type: DELETE_VOTE,
   vote
 })
 
@@ -40,9 +46,12 @@ export const createOneVote = (optionId, pollId) => async dispatch => {
   })
   const vote = await res.json()
 
-
-  dispatch(createVote(vote))
-  return vote
+  if (vote.id) {
+    dispatch(createVote(vote))
+    return vote
+  } else {
+    dispatch(deleteVote(vote))
+  }
 }
 
 const votesReducer = (state = {}, action) => {
@@ -56,6 +65,11 @@ const votesReducer = (state = {}, action) => {
         ...state,
         votes: [...state.votes, action.vote]
       }
+      return newState
+    }
+    case DELETE_VOTE: {
+      const newState = {...state};
+      delete newState[action.vote]
       return newState
     }
     default:
