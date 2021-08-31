@@ -10,7 +10,6 @@ import votesReducer, { createOneVote, getAllVotes } from '../../store/votes';
 function HomePage() {
   const user = useSelector(state => state.session.user)
   const polls = useSelector(state => Object.values(state.polls))
-  const votes = useSelector(state => state.votes.votes)
   const sortedPolls = polls.reverse()
   const dispatch = useDispatch();
 
@@ -36,19 +35,41 @@ function HomePage() {
                 {(poll.user_id === user.id) &&
                   <>
                     <DeletePollModal pollId={poll?.id} />
-                    <EditPollModal poll={poll} />
+                    {!poll.options.votes?.length &&
+                      <EditPollModal poll={poll} />
+                    }
+                    {/* {poll.options.every(option => {
+                        if (!option.votes.length === 0) {
+                          return <EditPollModal poll={poll} />
+                        }
+                    })
+                    } */}
                   </>
                 }
             </div>
-            <div key={poll?.id}>{poll?.question}</div>
+            <div className="poll-question" key={poll?.id}>{poll?.question}</div>
               <div className="options-container">
-                {poll.options?.map((option) =>
-                  option.image ?
-                  <div>
-                    <img onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-image" src={option.content} />
+                {poll?.options?.map((option) =>
+                  option?.image ?
+                  <div className= "option-image-container" onClick={() => handleVote(option.id, poll.id)}>
+                    <img  key={option.id} className="option-image-content" src={option.content} />
+                    <div className="vote-count-footer">
+                    {option.votes?.length === 1 ?
+                      <div className="vote-count">{option.votes?.length} Vote</div>
+                      :
+                      <div className="vote-count">{option.votes?.length} Votes</div>
+                    }
+                    </div>
                   </div>
                   :
-                   <div onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-string"> {option.content}</div>
+                  <div onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-string-container">
+                    <div className="option-string-content">{option.content}</div>
+                    {option.votes?.length === 1 ?
+                      <div className="vote-count">{option.votes?.length} Vote</div>
+                      :
+                      <div className="vote-count">{option.votes?.length} Votes</div>
+                    }
+                  </div>
                 )}
               </div>
           </div>
