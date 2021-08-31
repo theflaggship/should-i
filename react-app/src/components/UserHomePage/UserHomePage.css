@@ -19,19 +19,34 @@
   margin-bottom: 20px;
 }
 
+.poll-question {
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  padding: 10px;
+  margin-left: 10px;
+}
+
 .options-container {
   margin-top: 10px;
 }
 
-.options-container div {
+.option-string-container {
   border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 5px;
-  padding: 3px;
-  min-width: 300px;
-  max-width: auto;
+  padding: 6px;
+  max-width: 400px;
   height: auto;
   cursor: pointer;
+}
+
+.option-string-content {
+  max-width: 300px;
   word-wrap: break-word;
+  line-height: 25px;
 }
 
 .option-image {
