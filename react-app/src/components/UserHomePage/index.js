@@ -19,6 +19,10 @@ function HomePage() {
     dispatch(createOneVote(optionId, pollId))
   }
 
+  console.log('------------------------------------');
+  console.log(polls[4]?.options[1].content);
+  console.log('------------------------------------');
+
   useEffect(() => {
     dispatch(getPolls())
     dispatch(getAllVotes())
@@ -42,14 +46,36 @@ function HomePage() {
             </div>
             <div key={poll?.id}>{poll?.question}</div>
               <div className="options-container">
-                {poll.options?.map((option) =>
-                  option.image ?
-                  <div>
-                    <img onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-image" src={option.content} />
-                  </div>
-                  :
-                   <div onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-string"> {option.content}</div>
-                )}
+                {poll.options?.map((option) => {
+                  // option.image ?
+                  return (
+                    ((poll.options.length === 2) && (option.image)) &&
+                      <>
+                        <div onClick={() => handleVote(option.id, poll.id)} className="two-img-container">
+                          <img  key={option.id} className="option-image" src={option.content} />
+                          <footer>Vote Count: {option.votes}</footer>
+                        </div>
+                      </>
+
+                     ((poll.options.length === 3) && (option.image)) &&
+                        <>
+                          <div onClick={() => handleVote(option.id, poll.id)} className="three-img-container">
+                            <img  key={option.id} className="option-image" src={option.content} />
+                            <footer>Vote Count: {option.votes}</footer>
+                          </div>
+                        </>
+
+                      ((poll.options.length === 4) && (option.image)) &&
+                        <>
+                          <div onClick={() => handleVote(option.id, poll.id)} className="four-img-container">
+                            <img  key={option.id} className="option-image" src={option.content} />
+                            <footer>Vote Count: {option.votes}</footer>
+                          </div>
+                        </>
+                 )
+                  // :
+                    // <div onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-string"> {option.content}</div>
+                })}
               </div>
           </div>
         ))}

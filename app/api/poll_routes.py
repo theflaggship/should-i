@@ -23,7 +23,7 @@ def get_all_polls():
     poll["options"] = [option.to_dict() for option in options]
     for option in options:
       votes = Vote.query.filter(Vote.option_id == option.id).all()
-      option["votes"] = [vote.to_dict() for vote in votes]
+      poll["votes"] = [vote.to_dict() for vote in votes for option in options]
     user = User.query.filter(
        User.id == poll["user_id"]).first()
     poll["user"] = user.to_dict()
