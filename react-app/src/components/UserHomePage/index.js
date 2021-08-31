@@ -5,7 +5,7 @@ import { getPolls, editOnePoll} from "../../store/polls"
 import './UserHomePage.css'
 import DeletePollModal from '../DeletePollModal';
 import EditPollModal from '../EditPollModal';
-import votesReducer, { createOneVote, getAllVotes } from '../../store/votes';
+import { createOneVote, getAllVotes } from '../../store/votes';
 
 function HomePage() {
   const user = useSelector(state => state.session.user)
