@@ -24,6 +24,7 @@
   font-size: 18px;
   padding: 10px;
   margin-left: 10px;
+  line-height: 24px;
 }
 
 .options-container {
@@ -46,7 +47,7 @@
 .option-string-content {
   max-width: 300px;
   word-wrap: break-word;
-  line-height: 25px;
+  line-height: 23px;
 }
 
 .option-image {

@@ -20,6 +20,7 @@ function HomePage() {
 
   useEffect(() => {
     dispatch(getPolls())
+    dispatch(getAllVotes())
   }, [dispatch])
 
   return (

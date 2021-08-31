@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600&family=Roboto:wght@100;300;400;500&display=swap");
+
 .fa-plus-circle {
   color: #21D0B2;
 }
@@ -18,5 +20,91 @@
   align-items: center;
   cursor: pointer;
   font-size: 50px;
-  box-shadow: 0px 0 8px 1px rgb(211, 211, 211);
+}
+
+.new-poll-title {
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-family: "Baloo 2", serif;
+  font-size: 24px;
+  color: #2E445C;
+}
+
+.new-poll-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: auto;
+  width: 400px;
+  padding: 20px;
+}
+
+.question-input {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  padding: 10px;
+  padding-bottom: 20px;
+  width: 350px;
+  height: 100px;
+  margin-left: 15px;
+  resize: none;
+  overflow-y: scroll;
+}
+
+.question-input:hover {
+  background-color: rgb(244, 244, 244);
+}
+
+.new-poll-container label {
+  font-family: "Montserrat", sans-serif;
+}
+
+.image-checkbox-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 125px;
+}
+
+.create-options-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.create-options-input {
+  width: 85%;
+  height: 30px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  border: 1px solid gray;
+  margin-top: 10px;
+}
+
+.delete-option-button {
+  margin-left: 5px;
+  margin-top: 10px;
+}
+
+.add-option-button {
+  margin-right: 20px;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.add-option-button:disabled {
+  color: #a0a0a0
+}
+
+.fa-plus-circle:disabled {
+  color: #a0a0a0
 }
