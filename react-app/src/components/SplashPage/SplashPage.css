@@ -7,13 +7,13 @@
   flex: row;
   background-color: #2F455c;
   justify-content: space-around;
-  height: 1000px;
+  min-height: 800px;
   width: 100%;
 }
 
 .right-splash {
   z-index: 1;
-  margin-top: 200px;
+  margin-top: 100px;
   margin-right: 100px;
   background-color: white;
   height: 500px;
@@ -22,7 +22,7 @@
 
 .splash-logo {
   z-index: 1;
-  margin-top: 200px;
+  margin-top: 125px;
   margin-left: 50px;
   height: auto;
   width: 600px;
@@ -48,4 +48,46 @@
   text-decoration: underline;
 	color: #1eb59c;
 	cursor: pointer;
+}
+
+.splash-text {
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  font-size: 24px;
+  width: 500px;
+  line-height: 30px;
+  margin-left: 115px;
+  margin-top: 20px;
+}
+
+.personal-info {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 250px;
+  margin-top: 50px;
+
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+  margin-right: 23px;
+}
+
+.fa-envelope,
+.fa-linkedin,
+.fa-github {
+  color: white;
+  margin-right: 20px;
+  font-size: 20px;
+}
+
+.full-name {
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  font-size: 16px;
 }

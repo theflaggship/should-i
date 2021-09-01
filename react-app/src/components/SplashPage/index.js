@@ -28,6 +28,25 @@ function SplashPage({authenticated}) {
     <div className="splash-page-container">
       <div className="left-splash">
           <img className="splash-logo" src="https://i.imgur.com/zJ1Mb0C.png"/>
+          <div className="splash-text">
+            Having a hard time making a decision? Let us help.
+            "Should I?" is a social polling app where friends
+            and other users can vote and help you choose an option.
+          </div>
+          <div className="personal-info">
+            <div className="full-name">Montgomery Flagg</div>
+            <div className="contact-links">
+              <a href="mailto:monteflagg@gmail.com">
+                <i className="far fa-envelope" />
+              </a>
+              <a href='https://www.linkedin.com/in/montgomery-flagg/'>
+                <i className="fab fa-linkedin" />
+              </a>
+              <a href='https://github.com/theflaggship'>
+                <i className="fab fa-github" />
+              </a>
+            </div>
+          </div>
       </div>
       <div className="right-splash">
           <LoginForm />
