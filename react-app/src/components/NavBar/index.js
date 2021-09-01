@@ -19,11 +19,11 @@ const NavBar = () => {
           </NavLink>
         </div>
         <div className="center-nav">
-          <div className="search-bar-container">
+          {/* <div className="search-bar-container">
             <form>
               <input placeholder="Search for users or categories" className="search-input"></input>
             </form>
-          </div>
+          </div> */}
         </div>
         <div className="right-nav">
           <div className="create-poll-container">
