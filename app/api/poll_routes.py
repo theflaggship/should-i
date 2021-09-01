@@ -27,7 +27,10 @@ def get_all_polls():
     user = User.query.filter(
        User.id == poll["user_id"]).first()
     poll["user"] = user.to_dict()
-    
+    sum = 0
+    for option in options:
+      sum += len(option.votes)
+    poll["total_votes"] = sum
   return {"polls": polls}
 
 # # -------------------- CREATE POLL AND OPTIONS -------------------------

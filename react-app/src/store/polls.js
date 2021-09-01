@@ -64,6 +64,7 @@ export const createOnePoll = (question, options, image, user) => async dispatch 
       id: data.poll.id,
       options: [...data.options],
       question: data.poll.question,
+      total_votes: 0,
       user: {...user},
       user_id: data.poll.user_id,
     }
@@ -94,6 +95,7 @@ export const editOnePoll = (pollId, question, options, image, user) => async dis
       id: data.poll.id,
       options: [...data.options],
       question: data.poll.question,
+      total_votes: data.poll.total_votes,
       user: {...user},
       user_id: data.poll.user_id,
     }

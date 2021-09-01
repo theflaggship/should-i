@@ -36,7 +36,7 @@ function HomePage() {
                 {(poll.user_id === user.id) &&
                   <>
                     <DeletePollModal pollId={poll?.id} />
-                    {!poll.options.votes?.length &&
+                    {poll.total_votes === 0 &&
                       <EditPollModal poll={poll} />
                     }
                     {/* {poll.options.every(option => {
