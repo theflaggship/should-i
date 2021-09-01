@@ -10,3 +10,21 @@
   color: black;
   z-index: 1;
 }
+
+.edit-poll-button {
+  width: 50%;
+	height: 35px;
+	background-color: #16CFFE;
+	color: white;
+	font-size: 20px;
+	font-family: 'Baloo 2', serif;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+  margin-top: 20px;
+  margin-left: 85px;
+}
+
+.edit-poll-button:hover {
+  background-color: #16bce6
+}

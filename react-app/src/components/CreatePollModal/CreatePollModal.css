@@ -116,3 +116,21 @@
   margin-left: 120px;
   background-color: #1eb199;
 }
+
+.create-poll-button {
+  width: 50%;
+	height: 35px;
+	background-color: #16CFFE;
+	color: white;
+	font-size: 20px;
+	font-family: 'Baloo 2', serif;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+  margin-top: 20px;
+  margin-left: 85px;
+}
+
+.create-poll-button:hover {
+  background-color: #16bce6
+}
