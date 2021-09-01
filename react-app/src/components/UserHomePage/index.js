@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getPolls, editOnePoll} from "../../store/polls"
+import TimeAgo from "timeago-react"
 import './UserHomePage.css'
 import DeletePollModal from '../DeletePollModal';
 import EditPollModal from '../EditPollModal';
@@ -72,6 +73,9 @@ function HomePage() {
                   </div>
                 )}
               </div>
+            <div className="poll-footer">
+              <TimeAgo datetime={poll.created_at} />
+            </div>
           </div>
         ))}
       </div>

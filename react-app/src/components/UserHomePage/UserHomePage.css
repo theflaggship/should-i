@@ -82,3 +82,16 @@
 .poll-username {
   color: gray;
 }
+
+.poll-footer {
+  display: flex;
+  flex: row;
+  justify-content: center;
+}
+
+.poll-footer time {
+  position: absolute;
+  font-size: 12px;
+  margin-top: 5px;
+  color: gray
+}
