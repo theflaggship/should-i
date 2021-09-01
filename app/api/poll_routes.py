@@ -146,7 +146,7 @@ def get_option_votes(option_id):
   return {"option": option.to_dict(), "votes": [vote.to_dict() for vote in votes]}
 
 
-# -------------------- CREATE A VOTE -------------------------
+# -------------------- CREATE, EDIT or DELETE A VOTE -------------------------
 
 @poll_routes.route('/<int:poll_id>/options/<int:option_id>/votes/', methods=['POST', 'DELETE'])
 # @login_required
@@ -174,5 +174,3 @@ def cast_vote(option_id, poll_id):
   db.session.add(newVote)
   db.session.commit()
   return newVote.to_dict()
-
-# -------------------- EDIT/CHANGE A VOTE -------------------------

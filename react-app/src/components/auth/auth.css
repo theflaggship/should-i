@@ -1,15 +1,16 @@
 .logout-button {
   border: none;
-  font-size: 16px;
-  font-family: "Baloo 2", serif;
-  background-color: white;
-  border-radius: 5px;
-  color: #312C80;
-  margin-bottom: 18px;
-  margin-top: 8px;
-  margin-left: 10px;
-  padding: 5px 10px 5px 10px;
+  border-bottom: 1px solid rgb(210, 208, 208);
+  display: flex;
+  padding-bottom: 5px;
+  justify-content: start;
+  font-size: 18px;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 15px;
+  background-color: transparent;
+  color: #2E445C;
   cursor: pointer;
+  width: 150px;
 }
 
 .login-container {

@@ -45,6 +45,9 @@ export const castOneVote = (optionId, pollId) => async dispatch => {
     },
   })
   const vote = await res.json()
+  console.log('------------------------------------');
+  console.log(vote);
+  console.log('------------------------------------');
 
   if (vote.id) {
     dispatch(createVote(vote))

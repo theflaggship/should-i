@@ -166,3 +166,21 @@
   color: #2f455c;
   font-size: 16px;
 }
+
+.my-polls-link {
+  border: none;
+  border-bottom: 1px solid rgb(210, 208, 208);
+  display: flex;
+  padding-bottom: 5px;
+  justify-content: start;
+  font-size: 18px;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 15px;
+  margin-left: 2px;
+  background-color: transparent;
+  color: #2E445C;
+  cursor: pointer;
+  width: 150px;
+  text-decoration: none;
+  cursor: pointer;
+}
