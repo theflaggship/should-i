@@ -1,15 +1,22 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getUserPolls, deleteOnePoll } from '../../store/polls';
+import { getUserPolls, getPolls } from '../../store/polls';
 import './UserPollsPage.css'
+import TimeAgo from 'timeago-react';
 import DeletePollModal from '../DeletePollModal';
+import EditPollModal from '../EditPollModal';
+import { castOneVote, getAllVotes } from '../../store/votes'
 
 function UserPollsPage() {
   const user = useSelector(state => state.session.user)
-  const polls = useSelector(state => [...Object.values(state.polls)])
+  const polls = useSelector(state => Object.values(state.polls))
   const sortedPolls = polls.reverse()
   const dispatch = useDispatch();
+
+  const handleVote = (optionId, pollId) => {
+    dispatch(castOneVote(optionId, pollId))
+  }
 
   useEffect(() => {
     dispatch(getUserPolls(user.id))
@@ -24,19 +31,51 @@ function UserPollsPage() {
                   <img className="profile-pic" src={user?.profile_pic}/>
                 </div>
                 <div className="poll-username">{user?.username}</div>
-                  <DeletePollModal pollId={poll?.id} />
+                {(poll.user_id === user.id) &&
+                  <>
+                    <DeletePollModal pollId={poll?.id} />
+                    {poll.total_votes === 0 &&
+                      <EditPollModal poll={poll} />
+                    }
+                  </>
+                }
             </div>
-            <div key={poll?.id}>{poll?.question}</div>
-              <div className="options-container">
-                {poll.options?.map((option) =>
-                   option.image ?
-                   <img key={option.id} className="option-image" src={option.content} /> :
-                   <div key={option.id} className="option-string"> {option.content}</div>
-                )}
-              </div>
+            <div className="poll-question" key={poll?.id}>{poll?.question}</div>
+              {poll?.options[0].image ?
+                <div className="image-options-container">
+                  {poll?.options?.map((option) =>
+                    <div key={option.id} className= "option-image-container" onClick={() => handleVote(option.id, poll.id)}>
+                      <img className="option-image-content" src={option.content} />
+                      <div className="image-vote-count-footer">
+                        {option.votes?.length === 1 ?
+                          <div className="image-vote-count">{option.votes?.length} Vote</div>
+                          :
+                          <div className="image-vote-count">{option.votes?.length} Votes</div>
+                        }
+                      </div>
+                    </div>
+                  )}
+                </div>
+                :
+                <div className="string-options-container">
+                  {poll?.options?.map((option) =>
+                    <div onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-string-container">
+                    <div className="option-string-content">{option.content}</div>
+                    {option.votes?.length === 1 ?
+                      <div className="vote-count">{option.votes?.length} Vote</div>
+                      :
+                      <div className="vote-count">{option.votes?.length} Votes</div>
+                    }
+                    </div>
+                  )}
+                </div>
+              }
+          <div className="poll-footer">
+            <TimeAgo datetime={poll.created_at} />
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+    </div>
   )
 }
 

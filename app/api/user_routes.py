@@ -30,12 +30,20 @@ def user(id):
 @user_routes.route('/<int:id>/polls/')
 @login_required
 def get_user_polls(id):
-    polls_query = Poll.query.filter(Poll.user_id == id).all()
-    print("+=++++++++======+++++=======")
-    print(polls_query)
-    polls = [poll.to_dict() for poll in polls_query]
-    for poll in polls:
-      options = Option.query.filter(
-        Option.poll_id == poll["id"]).all()
-      poll["options"] = [option.to_dict() for option in options]
-    return {"polls": polls}
+  polls_query = Poll.query.filter(Poll.user_id == id).all()
+  polls = [poll.to_dict() for poll in polls_query]
+  for poll in polls:
+    options = Option.query.filter(
+      Option.poll_id == poll["id"]).all()
+    poll["options"] = [option.to_dict() for option in options]
+    for option in poll["options"]:
+      votes = Vote.query.filter(Vote.option_id == option["id"]).all()
+      option["votes"] = [vote.to_dict() for vote in votes]
+    user = User.query.filter(
+       User.id == poll["user_id"]).first()
+    poll["user"] = user.to_dict()
+    sum = 0
+    for option in options:
+      sum += len(option.votes)
+    poll["total_votes"] = sum
+  return {"polls": polls}

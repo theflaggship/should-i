@@ -8,7 +8,7 @@ function EditPollModal({poll}) {
 
 	return (
         <>
-          <p className="edit-poll-icon" onClick={() => setShowModal(true)}><i class="far fa-edit"></i></p>
+          <p className="edit-poll-icon" onClick={() => setShowModal(true)}><i className="far fa-edit"></i></p>
           {showModal && (
               <Modal onClose={() => setShowModal(false)}>
                   <EditPoll poll={poll} setShowModal={setShowModal} />

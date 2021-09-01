@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getPolls, editOnePoll} from "../../store/polls"
+import { getPolls } from "../../store/polls"
 import TimeAgo from "timeago-react"
 import './UserHomePage.css'
 import DeletePollModal from '../DeletePollModal';

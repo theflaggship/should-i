@@ -40,8 +40,11 @@ const NavBar = () => {
         <div className='sidebar-container'>
           <p className="nav-username">{sessionUser.username}</p>
           <div className="arrow-button" onClick={()=> setOptions(false)}>
-            <i class="fas fa-chevron-right"></i>
+            <i className="fas fa-chevron-right"></i>
           </div>
+          <NavLink to={`/`} className='my-polls-link' exact={true} activeClassName='active'>
+            Home
+          </NavLink>
           <NavLink to={`/users/${sessionUser.id}/polls`} className='my-polls-link' exact={true} activeClassName='active'>
             My Polls
           </NavLink>

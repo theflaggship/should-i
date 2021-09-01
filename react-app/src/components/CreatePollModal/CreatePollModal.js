@@ -5,6 +5,7 @@ import { createOnePoll, getPolls } from '../../store/polls';
 
 const CreatePollForm = ({setShowModal}) => {
 	const [errors, setErrors] = useState([]);
+  const [optionError, setOptionError] = useState(true)
 	const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '']);
   const [image, setImage] = useState(false);
@@ -17,6 +18,13 @@ const CreatePollForm = ({setShowModal}) => {
 
 	const onCreate = async (e) => {
 		e.preventDefault();
+
+    options.map((option => {
+      if (option === '') {
+        setOptionError(false)
+      }
+    }))
+
 		const data = await dispatch(
 			createOnePoll(
 				question,
@@ -68,6 +76,7 @@ const CreatePollForm = ({setShowModal}) => {
 		<div className='new-poll-container'>
       <p className="new-poll-title">Create new poll:</p>
 			<form onSubmit={onCreate}>
+        <div hidden={optionError}>One or more options are missing</div>
 				<div className='errors-container'>
 					{errors.map((error, ind) => (
 						<div className="errors" key={ind}>{error}</div>

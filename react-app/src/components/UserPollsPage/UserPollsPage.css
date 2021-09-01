@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600&family=Roboto:wght@100;300;400;500&display=swap");
+
+.user-home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.poll-container {
+  background-color: white;
+  width: 450px;
+  height: auto;
+  border: 1px solid #6682a0;
+  font-family: "Montserrat", sans-serif;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.poll-question {
+  font-family: "Montserrat", sans-serif;
+  width: 90%;
+  font-size: 18px;
+  padding: 5px;
+  margin-left: 18px;
+  line-height: 24px;
+}
+
+.string-options-container {
+  margin-top: 10px;
+}
+
+.image-options-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.option-string-container {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-left: 18px;
+  padding: 6px;
+  max-width: 400px;
+  height: auto;
+  cursor: pointer;
+}
+
+.option-string-content {
+  max-width: 300px;
+  word-wrap: break-word;
+  line-height: 23px;
+}
+
+.all-images-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.option-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgb(189, 189, 189);
+  cursor: pointer;
+}
+
+.option-image {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.user-info-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.profile-pic-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin-right: 15px;
+  border: 2px solid #1dcdfe;
+}
+
+.profile-pic {
+  width: 100%;
+  height: auto;
+}
+
+.poll-username {
+  color: gray;
+}
+
+.poll-footer {
+  display: flex;
+  flex: row;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.poll-footer time {
+  position: absolute;
+  font-size: 12px;
+  margin-top: 5px;
+  color: gray;
+}
+
+.image-vote-count-footer {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  height: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 200px;
+  color: white;
+  text-align: center;
+  margin-top: 180px;
+}
