@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600&family=Roboto:wght@100;300;400;500&display=swap");
 
-
 .user-home-container {
   display: flex;
   flex-direction: column;
@@ -22,7 +21,7 @@
 .poll-question {
   font-family: "Montserrat", sans-serif;
   font-size: 18px;
-  padding: 10px;
+  padding: 5px;
   margin-left: 10px;
   line-height: 24px;
 }
@@ -59,7 +58,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 5px;
 }
 
 .profile-pic-container {
@@ -71,7 +70,7 @@
   height: 40px;
   width: 40px;
   margin-right: 15px;
-  border: 2px solid #1DCDFE
+  border: 2px solid #1dcdfe;
 }
 
 .profile-pic {
@@ -87,11 +86,12 @@
   display: flex;
   flex: row;
   justify-content: center;
+  margin-bottom: 5px;
 }
 
 .poll-footer time {
   position: absolute;
   font-size: 12px;
   margin-top: 5px;
-  color: gray
+  color: gray;
 }

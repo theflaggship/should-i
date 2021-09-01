@@ -1,13 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600&family=Roboto:wght@100;300;400;500&display=swap");
 
 .fa-plus-circle {
-  color: #21D0B2;
+  color: #21d0b2;
 }
 
 .fa-plus-circle:hover {
-  color: #1eb199
+  color: #1eb199;
 }
-
 
 .add-poll-button {
   margin-right: 20px;
@@ -28,7 +27,7 @@
   margin-bottom: 10px;
   font-family: "Baloo 2", serif;
   font-size: 24px;
-  color: #2E445C;
+  color: #2e445c;
 }
 
 .new-poll-container {
@@ -58,6 +57,8 @@
 
 .new-poll-container label {
   font-family: "Montserrat", sans-serif;
+  position: absolute;
+  margin-top: 6px;
 }
 
 .image-checkbox-container {
@@ -83,28 +84,35 @@
   margin-top: 10px;
 }
 
+.create-options-input:hover {
+  background-color: rgb(244, 244, 244);
+}
+
 .delete-option-button {
   margin-left: 5px;
   margin-top: 10px;
 }
 
-.add-option-button {
-  margin-right: 20px;
+.add-option-button-create-poll {
+  margin-left: 175px;
+  margin-top: 10px;
   height: 20px;
   width: 20px;
   border-radius: 50%;
   padding: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
   font-size: 25px;
 }
 
-.add-option-button:disabled {
-  color: #a0a0a0
+.image-checkbox {
+  height: 20px;
+  width: 20px;
+  margin-left: 120px;
 }
 
-.fa-plus-circle:disabled {
-  color: #a0a0a0
+.image-checkbox:checked {
+  height: 20px;
+  width: 20px;
+  margin-left: 120px;
+  background-color: #1eb199;
 }

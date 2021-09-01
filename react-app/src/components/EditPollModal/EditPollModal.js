@@ -74,29 +74,37 @@ const EditPoll = ({poll, setShowModal}) => {
 
 	return (
 		<div className='new-poll-container'>
+      <p className="new-poll-title">Edit your poll:</p>
 			<form onSubmit={onEdit}>
 				<div className='errors-container'>
 					{errors.map((error, ind) => (
 						<div className="errors" key={ind}>{error}</div>
 					))}
 				</div>
-					<textarea
-						className='question-input'
-						placeholder=' Should I...'
-						type='text'
-						onChange={updateQuestion}
-						value={question}
-						required={true}></textarea>
-          <input
-              type='checkbox'
-              className='image-checkbox'
-              onChange={updateImage}
-              value={image}></input>
+          <div>
+					  <textarea
+					  	className='question-input'
+					  	placeholder=' Should I...'
+					  	type='text'
+					  	onChange={updateQuestion}
+					  	value={question}
+					  	required={true}></textarea>
+          </div>
+          <div className="image-checkbox-container">
+            <label>Image URLs?</label>
+            <input
+                type='checkbox'
+                className='image-checkbox'
+                onChange={updateImage}
+                value={image}></input>
+          </div>
           {options.map((option, index) => {
             return (
-              <div>
+              <div className="create-options-container">
                 <input
+                  className="create-options-input"
                   value={options[index]}
+                  placeholder={`  Option ${index + 1}`}
                   onChange={(e) => updateOption(e.target.value, index)}/>
                 <div className="delete-option-button" onClick={() => removeOption(index)} hidden={options.length < 3}>
                   <i className="fas fa-minus-circle"></i>
@@ -104,7 +112,7 @@ const EditPoll = ({poll, setShowModal}) => {
               </div>
             )
           })}
-            <div className="add-option-button" onClick={() => addOption()} hidden={options.length >= 4}>
+            <div className="add-option-button-create-poll" onClick={() => addOption()} hidden={options.length >= 4}>
               <i className="fas fa-plus-circle"></i>
             </div>
 				  <div className='create-button-container'>

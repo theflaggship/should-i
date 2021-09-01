@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { createOnePoll, getPolls } from '../../store/polls';
-import { createOneOption } from '../../store/options';
 
 const CreatePollForm = ({setShowModal}) => {
 	const [errors, setErrors] = useState([]);
@@ -97,7 +96,7 @@ const CreatePollForm = ({setShowModal}) => {
                 <input
                   className="create-options-input"
                   value={options[index]}
-                  placeholder={`Option ${index + 1}`}
+                  placeholder={`  Option ${index + 1}`}
                   onChange={(e) => updateOption(e.target.value, index)}/>
                 <div className="delete-option-button" onClick={() => removeOption(index)} hidden={options.length < 3}>
                   <i className="fas fa-minus-circle"></i>
@@ -105,10 +104,9 @@ const CreatePollForm = ({setShowModal}) => {
               </div>
             )
           })}
-            <div className="add-option-button" onClick={() => addOption()} disabled={options.length >= 4}>
-              <i className="fas fa-plus-circle" disabled={options.length >= 4}></i>
+            <div className="add-option-button-create-poll" onClick={() => addOption()} hidden={options.length >= 4}>
+              <i className="fas fa-plus-circle"></i>
             </div>
-
 				  <div className='create-button-container'>
 					  <button className='create-poll-button' type='submit'>
 					  	Ask Away
