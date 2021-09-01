@@ -21,9 +21,10 @@
 
 .poll-question {
   font-family: "Montserrat", sans-serif;
+  width: 90%;
   font-size: 18px;
   padding: 5px;
-  margin-left: 10px;
+  margin-left: 18px;
   line-height: 24px;
 }
 
@@ -45,6 +46,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
+  margin-left: 18px;
   padding: 6px;
   max-width: 400px;
   height: auto;
@@ -72,6 +74,8 @@
   height: 200px;
   margin-top: 10px;
   margin-bottom: 10px;
+  border: 1px solid rgb(189, 189, 189);
+  cursor: pointer;
 }
 
 .option-image {
@@ -120,4 +124,18 @@
   font-size: 12px;
   margin-top: 5px;
   color: gray;
+}
+
+.image-vote-count-footer {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  height: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 200px;
+  color: white;
+  text-align: center;
+  margin-top: 180px;
 }

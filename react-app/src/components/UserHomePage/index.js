@@ -51,11 +51,11 @@ function HomePage() {
                   {poll?.options?.map((option) =>
                     <div key={option.id} className= "option-image-container" onClick={() => handleVote(option.id, poll.id)}>
                       <img className="option-image-content" src={option.content} />
-                      <div className="vote-count-footer">
+                      <div className="image-vote-count-footer">
                         {option.votes?.length === 1 ?
-                          <div className="vote-count">{option.votes?.length} Vote</div>
+                          <div className="image-vote-count">{option.votes?.length} Vote</div>
                           :
-                          <div className="vote-count">{option.votes?.length} Votes</div>
+                          <div className="image-vote-count">{option.votes?.length} Votes</div>
                         }
                       </div>
                     </div>
