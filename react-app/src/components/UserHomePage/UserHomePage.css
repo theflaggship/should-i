@@ -3,13 +3,14 @@
 .user-home-container {
   display: flex;
   flex-direction: column;
+  justify-content:space-between;
   align-items: center;
   margin-top: 100px;
 }
 
 .poll-container {
   background-color: white;
-  width: 400px;
+  width: 450px;
   height: auto;
   border: 1px solid #6682a0;
   font-family: "Montserrat", sans-serif;
@@ -26,8 +27,15 @@
   line-height: 24px;
 }
 
-.options-container {
+.string-options-container {
   margin-top: 10px;
+}
+
+.image-options-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .option-string-container {
@@ -49,8 +57,26 @@
   line-height: 23px;
 }
 
-.option-image {
+.all-images-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.option-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
   width: 200px;
+  height: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.option-image {
+  width: 100%;
+  height: auto;
   cursor: pointer;
 }
 
