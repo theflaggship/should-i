@@ -78,9 +78,7 @@
   margin-right: 23px;
 }
 
-.fa-envelope,
-.fa-linkedin,
-.fa-github {
+.icon-links i{
   color: white;
   margin-right: 20px;
   font-size: 20px;
