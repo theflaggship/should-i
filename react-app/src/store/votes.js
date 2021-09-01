@@ -37,7 +37,7 @@ export const getOptionVotes = (pollId, optionId) => async dispatch => {
   }
 }
 
-export const createOneVote = (optionId, pollId) => async dispatch => {
+export const castOneVote = (optionId, pollId) => async dispatch => {
   const res = await fetch(`/api/polls/${pollId}/options/${optionId}/votes/`, {
     method: 'POST',
     headers: {

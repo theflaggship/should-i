@@ -6,7 +6,7 @@ import TimeAgo from "timeago-react"
 import './UserHomePage.css'
 import DeletePollModal from '../DeletePollModal';
 import EditPollModal from '../EditPollModal';
-import { createOneVote, getAllVotes } from '../../store/votes';
+import { castOneVote, getAllVotes } from '../../store/votes';
 
 function HomePage() {
   const user = useSelector(state => state.session.user)
@@ -16,7 +16,7 @@ function HomePage() {
 
 
   const handleVote = (optionId, pollId) => {
-    dispatch(createOneVote(optionId, pollId))
+    dispatch(castOneVote(optionId, pollId))
   }
 
   useEffect(() => {
