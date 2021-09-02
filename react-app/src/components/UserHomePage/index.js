@@ -48,7 +48,7 @@ function HomePage() {
               {poll.options[0].image ?
                 <div className="image-options-container">
                   {poll?.options?.map((option, index) =>
-                    <div key={option.id} className= "option-image-container" onClick={() => handleVote(option.id, index, poll.id, option.user_voted)}>
+                    <div key={option.id} className={`${option.user_voted ? "image-voted" : ""} option-image-container`} onClick={() => handleVote(option.id, index, poll.id, option.user_voted)}>
                       <img className="option-image-content" src={option.content} />
                       <div className="image-vote-count-footer">
                         {option.vote_count === 1 ?

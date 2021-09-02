@@ -46,9 +46,6 @@ export const getPolls = () => async dispatch => {
 
   if (res.ok) {
     const polls = await res.json()
-    console.log('------------------------------------');
-    console.log(polls);
-    console.log('------------------------------------');
     dispatch(loadPolls(polls.polls));
     return res
   }
@@ -225,10 +222,6 @@ const pollsReducer = (state = {}, action) => {
           }
         })
       }
-
-      console.log('INDEX------------------------------------');
-      console.log(indexOtherOption);
-      console.log('------------------------------------');
       const nextOptions = [...state[pollId].options]
       if (indexOtherOption) {
         nextOptions[indexOtherOption] = {...nextOptions[indexOtherOption], vote_count: nextVoteCountTwo, user_voted: nextUserVotedTwo}
