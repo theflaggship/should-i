@@ -16,36 +16,45 @@ const CreatePollForm = ({setShowModal}) => {
     dispatch(getPolls())
   }, [dispatch])
 
+
+
 	const onCreate = async (e) => {
 		e.preventDefault();
-
-    console.log("Oncreate")
-
-    options.map((option => {
-      if (option === '') {
+    console.log('------------------------------------');
+    console.log(options);
+    console.log('------------------------------------');
+    await options.forEach((option => {
+      console.log('------------------------------------');
+      console.log(option);
+      console.log('------------------------------------');
+      if (option == '') {
         setOptionError(false)
       }
     }))
+    console.log('------------------------------------');
+    console.log(optionError);
+    console.log('------------------------------------');
 
-    if (!optionError) {
+    if (optionError === false) {
       console.log("INSIDE IF OPTION ERROR")
-      return
+    } else {
+      const data = await dispatch(
+        createOnePoll(
+          question,
+          options,
+          image,
+          user
+        )
+      );
+
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        setShowModal(false)
+      }
     }
 
-		const data = await dispatch(
-			createOnePoll(
-				question,
-        options,
-        image,
-        user
-			)
-		);
 
-    if (data.errors) {
-			setErrors(data.errors);
-		} else {
-      setShowModal(false)
-    }
 	};
 
   const updateOption = (value, index) => {
@@ -112,6 +121,7 @@ const CreatePollForm = ({setShowModal}) => {
                 <input
                   className="create-options-input"
                   value={options[index]}
+                  required={true}
                   placeholder={`  Option ${index + 1}`}
                   onChange={(e) => updateOption(e.target.value, index)}/>
                 <div className="delete-option-button" onClick={() => removeOption(index)} hidden={options.length < 3}>
