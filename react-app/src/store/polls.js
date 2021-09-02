@@ -206,9 +206,6 @@ const pollsReducer = (state = {}, action) => {
       let nextUserVotedOne
       let nextUserVotedTwo
       let indexOtherOption
-      console.log('------------------------------------');
-      console.log(action);
-      console.log('------------------------------------');
       if (state[pollId].options.every(option => !option.user_voted)) {
         nextVoteCountOne = state[action.pollId].options[index].vote_count += 1
         nextUserVotedOne = true
