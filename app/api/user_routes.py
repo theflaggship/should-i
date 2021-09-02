@@ -4,7 +4,7 @@ from ..models.option import Option
 from ..models.vote import Vote
 from ..models.user import User
 from flask import Blueprint, jsonify
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import User
 
 user_routes = Blueprint('users', __name__)
@@ -38,7 +38,13 @@ def get_user_polls(id):
     poll["options"] = [option.to_dict() for option in options]
     for option in poll["options"]:
       votes = Vote.query.filter(Vote.option_id == option["id"]).all()
-      option["votes"] = [vote.to_dict() for vote in votes]
+      option["vote_count"] = len(votes)
+      user_voted = False
+      for vote in votes:
+        if vote.user_id == current_user.id:
+          user_voted = True
+          break
+      option["user_voted"] = user_voted
     user = User.query.filter(
        User.id == poll["user_id"]).first()
     poll["user"] = user.to_dict()

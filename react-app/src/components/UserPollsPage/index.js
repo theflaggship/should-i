@@ -14,8 +14,12 @@ function UserPollsPage() {
   const sortedPolls = polls.reverse()
   const dispatch = useDispatch();
 
-  const handleVote = (optionId, pollId) => {
-    dispatch(castOneVote(optionId, pollId))
+  function handleVote(optionId, index, pollId, user_voted) {
+    console.log(optionId)
+    console.log(index)
+    console.log(pollId)
+    console.log(user_voted)
+     return dispatch(castOneVote(optionId, index, pollId, user_voted))
   }
 
   useEffect(() => {
@@ -23,14 +27,14 @@ function UserPollsPage() {
   }, [dispatch])
 
   return (
-      <div className="user-home-container">
-        {sortedPolls?.map((poll) => (
-          <div className="poll-container">
+    <div className="user-home-container">
+      {sortedPolls?.map((poll) => (
+          <div key={poll.id} className="poll-container">
             <div className="user-info-container">
                 <div className="profile-pic-container">
-                  <img className="profile-pic" src={user?.profile_pic}/>
+                  <img className="profile-pic" src={poll?.user?.profile_pic}/>
                 </div>
-                <div className="poll-username">{user?.username}</div>
+                <div className="poll-username">{poll?.user?.username}</div>
                 {(poll.user_id === user.id) &&
                   <>
                     <DeletePollModal pollId={poll?.id} />
@@ -41,16 +45,16 @@ function UserPollsPage() {
                 }
             </div>
             <div className="poll-question" key={poll?.id}>{poll?.question}</div>
-              {poll?.options[0].image ?
+              {poll.options[0].image ?
                 <div className="image-options-container">
-                  {poll?.options?.map((option) =>
-                    <div key={option.id} className= "option-image-container" onClick={() => handleVote(option.id, poll.id)}>
+                  {poll?.options?.map((option, index) =>
+                    <div key={option.id} className={`${option.user_voted ? "image-voted" : ""} option-image-container`} onClick={() => handleVote(option.id, index, poll.id, option.user_voted)}>
                       <img className="option-image-content" src={option.content} />
                       <div className="image-vote-count-footer">
-                        {option.votes?.length === 1 ?
-                          <div className="image-vote-count">{option.votes?.length} Vote</div>
+                        {option.vote_count === 1 ?
+                          <div className="image-vote-count">{option.vote_count} Vote</div>
                           :
-                          <div className="image-vote-count">{option.votes?.length} Votes</div>
+                          <div className="image-vote-count">{option.vote_count} Votes</div>
                         }
                       </div>
                     </div>
@@ -58,13 +62,13 @@ function UserPollsPage() {
                 </div>
                 :
                 <div className="string-options-container">
-                  {poll?.options?.map((option) =>
-                    <div onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-string-container">
-                    <div className="option-string-content">{option.content}</div>
-                    {option.votes?.length === 1 ?
-                      <div className="vote-count">{option.votes?.length} Vote</div>
+                  {poll?.options?.map((option, index) =>
+                    <div  onClick={() => handleVote(option.id, index, poll.id, option.user_voted)} key={option.id} className={`${option.user_voted ? "string-voted" : ""} option-string-container`}>
+                    <div className="option-string-content" >{option.content}</div>
+                    {option.vote_count === 1 ?
+                      <div className="vote-count">{option.vote_count} Vote</div>
                       :
-                      <div className="vote-count">{option.votes?.length} Votes</div>
+                      <div className="vote-count">{option.vote_count} Votes</div>
                     }
                     </div>
                   )}

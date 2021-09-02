@@ -104,6 +104,7 @@ const EditPoll = ({poll, setShowModal}) => {
                 <input
                   className="create-options-input"
                   value={options[index]}
+                  required={true}
                   placeholder={`  Option ${index + 1}`}
                   onChange={(e) => updateOption(e.target.value, index)}/>
                 <div className="delete-option-button" onClick={() => removeOption(index)} hidden={options.length < 3}>
