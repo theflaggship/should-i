@@ -6,7 +6,7 @@ import TimeAgo from "timeago-react"
 import './UserHomePage.css'
 import DeletePollModal from '../DeletePollModal';
 import EditPollModal from '../EditPollModal';
-import { castOneVote, getAllVotes } from '../../store/votes';
+import { castOneVote, getAllVotes } from '../../store/polls';
 
 function HomePage() {
   const user = useSelector(state => state.session.user)
@@ -18,13 +18,12 @@ function HomePage() {
   // const [optionStringClass, setOptionStringClass] = useState("option-string-container")
 
 
-  const handleVote = (optionId, pollId) => {
-    dispatch(castOneVote(optionId, pollId))
+  const handleVote = (optionId, index, pollId, user_voted) => {
+    dispatch(castOneVote(optionId, index, pollId, user_voted))
   }
 
   useEffect(() => {
     dispatch(getPolls())
-    dispatch(getAllVotes())
   }, [dispatch])
 
   return (
@@ -48,14 +47,14 @@ function HomePage() {
             <div className="poll-question" key={poll?.id}>{poll?.question}</div>
               {poll.options[0].image ?
                 <div className="image-options-container">
-                  {poll?.options?.map((option) =>
-                    <div key={option.id} className= "option-image-container" onClick={() => handleVote(option.id, poll.id)}>
+                  {poll?.options?.map((option, index) =>
+                    <div key={option.id} className= "option-image-container" onClick={() => handleVote(option.id, index, poll.id, option.user_voted)}>
                       <img className="option-image-content" src={option.content} />
                       <div className="image-vote-count-footer">
-                        {option.votes?.length === 1 ?
-                          <div className="image-vote-count">{option.votes?.length} Vote</div>
+                        {option.vote_count === 1 ?
+                          <div className="image-vote-count">{option.vote_count} Vote</div>
                           :
-                          <div className="image-vote-count">{option.votes?.length} Votes</div>
+                          <div className="image-vote-count">{option.vote_count} Votes</div>
                         }
                       </div>
                     </div>
@@ -63,13 +62,13 @@ function HomePage() {
                 </div>
                 :
                 <div className="string-options-container">
-                  {poll?.options?.map((option) =>
-                    <div onClick={() => handleVote(option.id, poll.id)} key={option.id} className="option-string-container">
-                    <div className="option-string-content">{option.content}</div>
-                    {option.votes?.length === 1 ?
-                      <div className="vote-count">{option.votes?.length} Vote</div>
+                  {poll?.options?.map((option, index) =>
+                    <div  onClick={() => handleVote(option.id, index, poll.id, option.user_voted)} key={option.id} className={`${option.user_voted ? "string-voted" : ""} option-string-container`}>
+                    <div className="option-string-content" >{option.content}</div>
+                    {option.vote_count === 1 ?
+                      <div className="vote-count">{option.vote_count} Vote</div>
                       :
-                      <div className="vote-count">{option.votes?.length} Votes</div>
+                      <div className="vote-count">{option.vote_count} Votes</div>
                     }
                     </div>
                   )}
@@ -85,3 +84,6 @@ function HomePage() {
 }
 
 export default HomePage
+
+
+//style={{backgroundColor: option.user_voted ? "green" : "white"}}

@@ -23,7 +23,13 @@ def get_all_polls():
     poll["options"] = [option.to_dict() for option in options]
     for option in poll["options"]:
       votes = Vote.query.filter(Vote.option_id == option["id"]).all()
-      option["votes"] = [vote.to_dict() for vote in votes]
+      option["vote_count"] = len(votes)
+      user_voted = False
+      for vote in votes:
+        if vote.user_id == current_user.id:
+          user_voted = True
+          break
+      option["user_voted"] = user_voted
     user = User.query.filter(
        User.id == poll["user_id"]).first()
     poll["user"] = user.to_dict()
@@ -160,12 +166,12 @@ def cast_vote(option_id, poll_id):
       if vote.option_id == option_id and vote.user_id == user.id:
         db.session.delete(vote)
         db.session.commit()
-        return {"message": "Delete Success"}
+        return {"message": "Delete Success"}, 204
 
       if vote.user_id == user.id:
         vote.option_id = option_id
         db.session.commit()
-        return vote.to_dict()
+        return {}, 200
 
   newVote = Vote(
     user_id=user.id,
@@ -173,4 +179,4 @@ def cast_vote(option_id, poll_id):
   )
   db.session.add(newVote)
   db.session.commit()
-  return newVote.to_dict()
+  return {}, 200

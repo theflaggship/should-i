@@ -7,7 +7,7 @@ import votesReducer from './votes';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  polls: pollsReducer,
+  polls: pollsReducer, 
   options: optionsReducer,
   votes: votesReducer
 });

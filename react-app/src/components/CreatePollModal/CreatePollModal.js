@@ -19,11 +19,18 @@ const CreatePollForm = ({setShowModal}) => {
 	const onCreate = async (e) => {
 		e.preventDefault();
 
+    console.log("Oncreate")
+
     options.map((option => {
       if (option === '') {
         setOptionError(false)
       }
     }))
+
+    if (!optionError) {
+      console.log("INSIDE IF OPTION ERROR")
+      return
+    }
 
 		const data = await dispatch(
 			createOnePoll(
