@@ -203,27 +203,29 @@ const pollsReducer = (state = {}, action) => {
       return { ...state, ...action.votes}
     }
     case CREATE_VOTE: {
-      console.log('------------------------------------');
-      console.log(action);
-      console.log('------------------------------------');
       const {optionId, index, pollId} = action
       let nextVoteCount
       let nextUserVoted
-      if (action.user_voted) {
-        nextVoteCount = state[action.pollId].options[index].vote_count + 1
+      console.log('------------------------------------');
+      console.log(action);
+      console.log('------------------------------------');
+      if (action.user_voted === false) {
+        nextVoteCount = state[action.pollId].options[index].vote_count += 1
         nextUserVoted = true
       } else {
-        nextVoteCount = state[action.pollId].options[index].vote_count - 1
+        nextVoteCount = state[action.pollId].options[index].vote_count -= 1
         nextUserVoted = false
       }
       const {options} = state[pollId]
-      const nextOptions = [
-          ...options.slice(0, index),
-          {
-            ...options[index], vote_count: nextVoteCount, user_voted: nextUserVoted
-          },
-          ...options.slice(index + 1)
-      ]
+      // const nextOptions = [
+      //     ...options.slice(0, index),
+      //     {
+      //       ...options[index], vote_count: nextVoteCount, user_voted: nextUserVoted
+      //     },
+      //     ...options.slice(index + 1)
+      // ]
+      const nextOptions = [...state[pollId].options]
+      nextOptions[index] = {...nextOptions[index], vote_count: nextVoteCount, user_voted: nextUserVoted}
       const newState = {...state}
       newState[pollId].options = nextOptions
       return newState
