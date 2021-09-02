@@ -163,11 +163,8 @@ export const castOneVote = (optionId, index, pollId, user_voted) => async dispat
       'Content-Type': 'application/json'
     },
   })
-
-
-    dispatch(createVote(optionId, index, pollId, user_voted))
-
-
+  dispatch(createVote(optionId, index, pollId, user_voted))
+  return res
 }
 
 const pollsReducer = (state = {}, action) => {
@@ -204,28 +201,42 @@ const pollsReducer = (state = {}, action) => {
     }
     case CREATE_VOTE: {
       const {optionId, index, pollId} = action
-      let nextVoteCount
-      let nextUserVoted
+      let nextVoteCountOne
+      let nextVoteCountTwo
+      let nextUserVotedOne
+      let nextUserVotedTwo
+      let indexOtherOption
       console.log('------------------------------------');
       console.log(action);
       console.log('------------------------------------');
-      if (action.user_voted === false) {
-        nextVoteCount = state[action.pollId].options[index].vote_count += 1
-        nextUserVoted = true
+      if (state[pollId].options.every(option => !option.user_voted)) {
+        nextVoteCountOne = state[action.pollId].options[index].vote_count += 1
+        nextUserVotedOne = true
       } else {
-        nextVoteCount = state[action.pollId].options[index].vote_count -= 1
-        nextUserVoted = false
+        state[pollId].options.forEach((option, idx) => {
+          if (option.user_voted && optionId === option.id) {
+            nextVoteCountOne = option.vote_count -= 1
+            nextUserVotedOne = false
+          } else if (option.user_voted && optionId !== option.id) {
+            nextVoteCountTwo = option.vote_count -= 1
+            nextUserVotedTwo = false
+            indexOtherOption = idx
+          } else if (optionId === option.id) {
+            nextVoteCountOne = option.vote_count += 1
+            nextUserVotedOne = true
+            nextUserVotedTwo = false
+          }
+        })
       }
-      const {options} = state[pollId]
-      // const nextOptions = [
-      //     ...options.slice(0, index),
-      //     {
-      //       ...options[index], vote_count: nextVoteCount, user_voted: nextUserVoted
-      //     },
-      //     ...options.slice(index + 1)
-      // ]
+
+      console.log('INDEX------------------------------------');
+      console.log(indexOtherOption);
+      console.log('------------------------------------');
       const nextOptions = [...state[pollId].options]
-      nextOptions[index] = {...nextOptions[index], vote_count: nextVoteCount, user_voted: nextUserVoted}
+      if (indexOtherOption) {
+        nextOptions[indexOtherOption] = {...nextOptions[indexOtherOption], vote_count: nextVoteCountTwo, user_voted: nextUserVotedTwo}
+      }
+      nextOptions[index] = {...nextOptions[index], vote_count: nextVoteCountOne, user_voted: nextUserVotedOne}
       const newState = {...state}
       newState[pollId].options = nextOptions
       return newState
