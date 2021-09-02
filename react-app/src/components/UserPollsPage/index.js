@@ -14,11 +14,7 @@ function UserPollsPage() {
   const sortedPolls = polls.reverse()
   const dispatch = useDispatch();
 
-  function handleVote(optionId, index, pollId, user_voted) {
-    console.log(optionId)
-    console.log(index)
-    console.log(pollId)
-    console.log(user_voted)
+  const handleVote = (optionId, index, pollId, user_voted) => {
      return dispatch(castOneVote(optionId, index, pollId, user_voted))
   }
 
