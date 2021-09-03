@@ -134,3 +134,12 @@
 .create-poll-button:hover {
   background-color: #16bce6
 }
+
+.edit-notification {
+  margin-top: 15px;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  color: #2e445c;
+  line-height: 15px;
+}

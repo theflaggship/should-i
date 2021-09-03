@@ -127,6 +127,7 @@ const CreatePollForm = ({setShowModal}) => {
 					  <button className='create-poll-button' type='submit'>
 					  	Ask Away
 					  </button>
+          <div className="edit-notification">* Once a vote has been submitted, you can no longer edit your poll and options. You can still delete and create a new one if need be. *</div>
 			  	</div>
 			</form>
 		</div>
