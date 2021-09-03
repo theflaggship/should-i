@@ -25,12 +25,17 @@ View live: <a href='https://should--i.herokuapp.com/'>Should I?</a>
 
 ## Home Page:
 
-<img src="" width='500px' />
+<img src="https://i.imgur.com/jPcpE3Y.png" width='500px' />
 <br />
 
 ## User Profile Menu:
 
-<img src="" width='500px' />
+<img src="https://i.imgur.com/wBb9rdK.png" width='500px' />
+<br />
+
+## Create Poll Form:
+
+<img src="https://i.imgur.com/AIdfP3C.png" width='500px' />
 <br />
 
 # Technologies
