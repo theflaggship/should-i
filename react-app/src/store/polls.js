@@ -165,9 +165,7 @@ export const castOneVote = (optionId, index, pollId, user_voted) => async dispat
     },
   })
   const data = await res.json()
-  console.log('DATA------------------------------------');
-  console.log(data);
-  console.log('------------------------------------');
+
   dispatch(createVote(optionId, index, pollId, user_voted))
   return res
 }

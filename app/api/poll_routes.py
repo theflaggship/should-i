@@ -166,16 +166,16 @@ def cast_vote(option_id, poll_id):
     for vote in option.votes:
 
       if vote.option_id == option_id and vote.user_id == user.id:
+        print("======= IN FIRST CONDITION")
         db.session.delete(vote)
         db.session.commit()
-        # return {"message": "Delete Success"}, 204
-        pass
-
+        # return {option.id:option.to_dict() for option in poll.options}
 
       if vote.user_id == user.id:
+        print("======= IN SECOND CONDITION")
         vote.option_id = option_id
         db.session.commit()
-        pass
+        return {option.id:option.to_dict() for option in poll.options}
 
   newVote = Vote(
     user_id=user.id,
