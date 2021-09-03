@@ -19,5 +19,7 @@ class Option(db.Model):
       "poll_id": self.poll_id,
       "content": self.content,
       "image": self.image,
-      "created_at": self.created_at
+      "created_at": self.created_at,
+      "user_voted": False,
+      "vote_count": 0
   }

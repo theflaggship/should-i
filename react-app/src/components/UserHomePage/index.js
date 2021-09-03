@@ -50,7 +50,7 @@ function HomePage({userPolls}) {
                 {(poll.user_id === user.id) &&
                   <>
                     <DeletePollModal pollId={poll?.id} />
-                    {poll.total_votes === 0 &&
+                    {poll.options.every(option => option.vote_count === 0) &&
                       <EditPollModal poll={poll} />
                     }
                   </>
