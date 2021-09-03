@@ -154,12 +154,20 @@ export const getOptionVotes = (pollId, optionId) => async dispatch => {
 }
 
 export const castOneVote = (optionId, index, pollId, user_voted) => async dispatch => {
+  console.log("optionid:", optionId)
+  console.log("index:", index)
+  console.log("pollid:", pollId)
+  console.log("voted:", user_voted)
   const res = await fetch(`/api/polls/${pollId}/options/${optionId}/votes/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
   })
+  const data = await res.json()
+  console.log('DATA------------------------------------');
+  console.log(data);
+  console.log('------------------------------------');
   dispatch(createVote(optionId, index, pollId, user_voted))
   return res
 }
@@ -198,37 +206,14 @@ const pollsReducer = (state = {}, action) => {
     }
     case CREATE_VOTE: {
       const {optionId, index, pollId} = action
-      let nextVoteCountOne
-      let nextVoteCountTwo
-      let nextUserVotedOne
-      let nextUserVotedTwo
-      let indexOtherOption
-      if (state[pollId].options.every(option => !option.user_voted)) {
-        nextVoteCountOne = state[action.pollId].options[index].vote_count += 1
-        nextUserVotedOne = true
-      } else {
-        state[pollId].options.forEach((option, idx) => {
-          if (option.user_voted && optionId === option.id) {
-            nextVoteCountOne = option.vote_count -= 1
-            nextUserVotedOne = false
-          } else if (option.user_voted && optionId !== option.id) {
-            nextVoteCountTwo = option.vote_count -= 1
-            nextUserVotedTwo = false
-            indexOtherOption = idx
-          } else if (optionId === option.id) {
-            nextVoteCountOne = option.vote_count += 1
-            nextUserVotedOne = true
-            nextUserVotedTwo = false
-          }
-        })
-      }
-      const nextOptions = [...state[pollId].options]
-      if (indexOtherOption) {
-        nextOptions[indexOtherOption] = {...nextOptions[indexOtherOption], vote_count: nextVoteCountTwo, user_voted: nextUserVotedTwo}
-      }
-      nextOptions[index] = {...nextOptions[index], vote_count: nextVoteCountOne, user_voted: nextUserVotedOne}
-      const newState = {...state}
-      newState[pollId].options = nextOptions
+      let newState = {...state}
+      let oldOption = newState[pollId].options.find(option => option.user_voted)
+      oldOption["user_voted"] = false
+      oldOption["vote_count"] -= 1
+      let newOption = newState[pollId].options.find(option => option.id == optionId)
+      newOption["user_voted"] = true
+      newOption["vote_count"] += 1
+      console.log("STATE", newState)
       return newState
     }
 

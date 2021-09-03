@@ -159,19 +159,21 @@ def get_option_votes(option_id):
 def cast_vote(option_id, poll_id):
   user = current_user
   poll = Poll.query.get(poll_id)
-
+  # stuff = Option.query.get(option_id)
   for option in poll.options:
     for vote in option.votes:
 
       if vote.option_id == option_id and vote.user_id == user.id:
-        db.session.delete(vote)
-        db.session.commit()
-        return {"message": "Delete Success"}, 204
+        # db.session.delete(vote)
+        # db.session.commit()
+        # return {"message": "Delete Success"}, 204
+        # return
+        pass
 
       if vote.user_id == user.id:
         vote.option_id = option_id
         db.session.commit()
-        return {}, 200
+        # return {}, 200
 
   newVote = Vote(
     user_id=user.id,
@@ -179,4 +181,5 @@ def cast_vote(option_id, poll_id):
   )
   db.session.add(newVote)
   db.session.commit()
-  return {}, 200
+  # return {}, 200
+  return {option.id:option.to_dict() for option in poll.options}

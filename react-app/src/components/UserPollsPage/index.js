@@ -41,7 +41,7 @@ function UserPollsPage() {
                 }
             </div>
             <div className="poll-question" key={poll?.id}>{poll?.question}</div>
-              {poll.options[0].image ?
+              {poll.options[1].image ?
                 <div className="image-options-container">
                   {poll?.options?.map((option, index) =>
                     <div key={option.id} className={`${option.user_voted ? "image-voted" : ""} option-image-container`} onClick={() => handleVote(option.id, index, poll.id, option.user_voted)}>
