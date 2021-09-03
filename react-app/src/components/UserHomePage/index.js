@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux'
 import { getPolls } from "../../store/polls"
 import TimeAgo from "timeago-react"
@@ -8,11 +9,24 @@ import DeletePollModal from '../DeletePollModal';
 import EditPollModal from '../EditPollModal';
 import { castOneVote, getAllVotes } from '../../store/polls';
 
-function HomePage() {
+function HomePage({userPolls}) {
   const user = useSelector(state => state.session.user)
   const polls = useSelector(state => Object.values(state.polls))
-  const sortedPolls = polls.reverse()
+  let sortedPolls
   const dispatch = useDispatch();
+  const location = useLocation()
+
+  console.log(location.pathname === `/users/${user.id}/polls`)
+
+  if (location.pathname === `/users/${user.id}/polls`) {
+    sortedPolls = userPolls.filter(poll => poll.user_id === user.id).reverse()
+  } else {
+    sortedPolls = polls.reverse()
+  }
+
+  useEffect(() => {
+    dispatch(getPolls())
+  }, [dispatch])
 
   // const [optionImgClass, setOptionImgClass] = useState("option-image-container")
   // const [optionStringClass, setOptionStringClass] = useState("option-string-container")
@@ -22,9 +36,7 @@ function HomePage() {
     dispatch(castOneVote(optionId, index, pollId, user_voted))
   }
 
-  useEffect(() => {
-    dispatch(getPolls())
-  }, [dispatch])
+
 
   return (
     <div className="user-home-container">
