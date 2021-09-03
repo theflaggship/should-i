@@ -208,8 +208,15 @@ const pollsReducer = (state = {}, action) => {
       const {optionId, index, pollId} = action
       let newState = {...state}
       let oldOption = newState[pollId].options.find(option => option.user_voted)
-      oldOption["user_voted"] = false
-      oldOption["vote_count"] -= 1
+      if (oldOption && oldOption.id !== optionId) {
+        oldOption["user_voted"] = false
+        oldOption["vote_count"] -= 1
+      }
+      if (oldOption && oldOption.id == optionId) {
+        oldOption["user_voted"] = false
+        oldOption["vote_count"] -= 1
+        return newState
+      }
       let newOption = newState[pollId].options.find(option => option.id == optionId)
       newOption["user_voted"] = true
       newOption["vote_count"] += 1

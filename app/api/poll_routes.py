@@ -65,6 +65,8 @@ def create_poll():
       )
       db.session.add(option)
     db.session.commit()
+    # poll["total_votes"] = 0
+    # option["vote_count"] = 0
   return {"poll": poll.to_dict(), "options": [option.to_dict() for option in poll.options]}
 
 
@@ -164,16 +166,16 @@ def cast_vote(option_id, poll_id):
     for vote in option.votes:
 
       if vote.option_id == option_id and vote.user_id == user.id:
-        # db.session.delete(vote)
-        # db.session.commit()
+        db.session.delete(vote)
+        db.session.commit()
         # return {"message": "Delete Success"}, 204
-        # return
         pass
+
 
       if vote.user_id == user.id:
         vote.option_id = option_id
         db.session.commit()
-        # return {}, 200
+        pass
 
   newVote = Vote(
     user_id=user.id,
@@ -181,5 +183,4 @@ def cast_vote(option_id, poll_id):
   )
   db.session.add(newVote)
   db.session.commit()
-  # return {}, 200
   return {option.id:option.to_dict() for option in poll.options}
