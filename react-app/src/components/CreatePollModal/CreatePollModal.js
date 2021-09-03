@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { createOnePoll, getPolls } from '../../store/polls';
 
 const CreatePollForm = ({setShowModal}) => {
 	const [errors, setErrors] = useState([]);
-  const [optionError, setOptionError] = useState(true)
 	const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '']);
   const [image, setImage] = useState(false);
@@ -16,46 +14,39 @@ const CreatePollForm = ({setShowModal}) => {
     dispatch(getPolls())
   }, [dispatch])
 
+  function isValidURL(string) {
+    var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (res !== null)
+  };
 
-
+  const validURL = options.every(option => isValidURL(option))
+  const validOption = options.every(option => option !== '')
 	const onCreate = async (e) => {
-		e.preventDefault();
-    console.log('------------------------------------');
-    console.log(options);
-    console.log('------------------------------------');
-    await options.forEach((option => {
-      console.log('------------------------------------');
-      console.log(option);
-      console.log('------------------------------------');
-      if (option == '') {
-        setOptionError(false)
-      }
-    }))
-    console.log('------------------------------------');
-    console.log(optionError);
-    console.log('------------------------------------');
+	  e.preventDefault();
 
-    if (optionError === false) {
-      console.log("INSIDE IF OPTION ERROR")
-    } else {
-      const data = await dispatch(
-        createOnePoll(
-          question,
-          options,
-          image,
-          user
-        )
-      );
-
-      if (data.errors) {
-        setErrors(data.errors);
-      } else {
-        setShowModal(false)
-      }
+    if (!validOption) {
+      setErrors(["One or more options are missing"])
+      return
+    }
+    if (image && !validURL) {
+      setErrors(["Image URLs are not valid"])
+      return
     }
 
-
-	};
+    const data = await dispatch(
+      createOnePoll(
+        question,
+        options,
+        image,
+        user
+      )
+    );
+    if (data.errors) {
+      setErrors(data.errors);
+    } else {
+      setShowModal(false)
+    }
+  }
 
   const updateOption = (value, index) => {
     setOptions([
@@ -92,7 +83,6 @@ const CreatePollForm = ({setShowModal}) => {
 		<div className='new-poll-container'>
       <p className="new-poll-title">Create new poll:</p>
 			<form onSubmit={onCreate}>
-        <div hidden={optionError}>One or more options are missing</div>
 				<div className='errors-container'>
 					{errors.map((error, ind) => (
 						<div className="errors" key={ind}>{error}</div>
@@ -121,7 +111,7 @@ const CreatePollForm = ({setShowModal}) => {
                 <input
                   className="create-options-input"
                   value={options[index]}
-                  required={true}
+                  // required={true}
                   placeholder={`  Option ${index + 1}`}
                   onChange={(e) => updateOption(e.target.value, index)}/>
                 <div className="delete-option-button" onClick={() => removeOption(index)} hidden={options.length < 3}>
