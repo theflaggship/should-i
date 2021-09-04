@@ -36,13 +36,13 @@ function SplashPage({authenticated}) {
           <div className="personal-info">
             <div className="full-name">Montgomery Flagg</div>
             <div className="contact-links">
-              <a className="icon-links" href="mailto:monteflagg@gmail.com">
+              <a target ="_blank" rel="noreferrer" className="icon-links" href="mailto:monteflagg@gmail.com">
                 <i className="far fa-envelope" />
               </a>
-              <a className="icon-links" href='https://www.linkedin.com/in/montgomeryflagg/'>
+              <a target ="_blank" rel="noreferrer" className="icon-links" href='https://www.linkedin.com/in/montgomeryflagg/'>
                 <i className="fab fa-linkedin" />
               </a>
-              <a className="icon-links" href='https://github.com/theflaggship'>
+              <a target ="_blank" rel="noreferrer" className="icon-links" href='https://github.com/theflaggship'>
                 <i className="fab fa-github" />
               </a>
             </div>

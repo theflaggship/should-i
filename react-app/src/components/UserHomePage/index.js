@@ -16,8 +16,6 @@ function HomePage({userPolls}) {
   const dispatch = useDispatch();
   const location = useLocation()
 
-  console.log(location.pathname === `/users/${user.id}/polls`)
-
   if (location.pathname === `/users/${user.id}/polls`) {
     sortedPolls = userPolls.filter(poll => poll.user_id === user.id).reverse()
   } else {

@@ -52,13 +52,13 @@ const NavBar = () => {
           <div className="menu-personal-info">
             <div className="menu-full-name">Montgomery Flagg</div>
               <div className="menu-contact-links">
-                <a className="menu-icon-links" href="mailto:monteflagg@gmail.com">
+                <a target ="_blank" rel="noreferrer" className="menu-icon-links" href="mailto:monteflagg@gmail.com">
                   <i className="far fa-envelope" />
                 </a>
-                <a className="menu-icon-links" href='https://www.linkedin.com/in/montgomeryflagg/'>
+                <a target ="_blank" rel="noreferrer" className="menu-icon-links" href='https://www.linkedin.com/in/montgomeryflagg/'>
                   <i className="fab fa-linkedin" />
                 </a>
-                <a className="menu-icon-links" href='https://github.com/theflaggship'>
+                <a target ="_blank" rel="noreferrer" className="menu-icon-links" href='https://github.com/theflaggship'>
                   <i className="fab fa-github" />
                 </a>
               </div>

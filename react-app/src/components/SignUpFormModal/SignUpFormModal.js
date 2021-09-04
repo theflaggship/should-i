@@ -15,11 +15,24 @@ const SignUpForm = ({setShowModal}) => {
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
 
+	function isValidURL(string) {
+    var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (res !== null)
+  };
+
 	const onSignUp = async (e) => {
 		e.preventDefault();
+
 		if (password !== repeatPassword) {
 			setErrors(['Passwords do not match'])
+			return
 		}
+
+		if (!isValidURL(profile_pic)) {
+			setErrors(['Image URL is not valid'])
+			return
+		}
+
 		if (password === repeatPassword) {
 			const data = await dispatch(
 				signUp(

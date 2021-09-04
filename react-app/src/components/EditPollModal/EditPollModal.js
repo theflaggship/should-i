@@ -20,9 +20,30 @@ const EditPoll = ({poll, setShowModal}) => {
     dispatch(getPolls())
   }, [dispatch])
 
+  function isValidURL(string) {
+    var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (res !== null)
+  };
+  const validURL = options.every(option => isValidURL(option))
+  const validOption = options.every(option => option !== '')
+
+
+  // if (poll.options[0].image) {
+  //   image = true
+  // }
 
 	const onEdit = async (e) => {
 		e.preventDefault();
+
+    if (!validOption) {
+      setErrors(["One or more options are missing"])
+      return
+    }
+    if (image && !validURL) {
+      setErrors(["Image URLs are not valid"])
+      return
+    }
+
 		const data = await dispatch(
 			editOnePoll(
         poll.id,
@@ -94,6 +115,7 @@ const EditPoll = ({poll, setShowModal}) => {
             <label>Image URLs?</label>
             <input
                 type='checkbox'
+                checked={image}
                 className='image-checkbox'
                 onChange={updateImage}
                 value={image}></input>
@@ -104,7 +126,7 @@ const EditPoll = ({poll, setShowModal}) => {
                 <input
                   className="create-options-input"
                   value={options[index]}
-                  required={true}
+                  // required={true}
                   placeholder={`  Option ${index + 1}`}
                   onChange={(e) => updateOption(e.target.value, index)}/>
                 <div className="delete-option-button" onClick={() => removeOption(index)} hidden={options.length < 3}>

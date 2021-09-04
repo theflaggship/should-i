@@ -154,10 +154,6 @@ export const getOptionVotes = (pollId, optionId) => async dispatch => {
 }
 
 export const castOneVote = (optionId, index, pollId, user_voted) => async dispatch => {
-  console.log("optionid:", optionId)
-  console.log("index:", index)
-  console.log("pollid:", pollId)
-  console.log("voted:", user_voted)
   const res = await fetch(`/api/polls/${pollId}/options/${optionId}/votes/`, {
     method: 'POST',
     headers: {
@@ -218,7 +214,6 @@ const pollsReducer = (state = {}, action) => {
       let newOption = newState[pollId].options.find(option => option.id == optionId)
       newOption["user_voted"] = true
       newOption["vote_count"] += 1
-      console.log("STATE", newState)
       return newState
     }
 

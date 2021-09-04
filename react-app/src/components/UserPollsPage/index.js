@@ -12,9 +12,6 @@ import HomePage from '../UserHomePage/'
 function UserPollsPage() {
   const user = useSelector(state => state.session.user)
   const userPolls = useSelector(state => Object.values(state.polls))
-  console.log('------------------------------------');
-  console.log(userPolls);
-  console.log('------------------------------------');
   const dispatch = useDispatch();
 
   // const handleVote = (optionId, index, pollId, user_voted) => {
