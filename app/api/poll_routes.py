@@ -65,8 +65,6 @@ def create_poll():
       )
       db.session.add(option)
     db.session.commit()
-    # poll["total_votes"] = 0
-    # option["vote_count"] = 0
   return {"poll": poll.to_dict(), "options": [option.to_dict() for option in poll.options]}
 
 

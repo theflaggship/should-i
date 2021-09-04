@@ -31,7 +31,7 @@ function SplashPage({authenticated}) {
           <div className="splash-text">
             Having a hard time making a decision? Let us help.
             "Should I?" is a social polling app where friends
-            and other users can vote and help you choose an option.
+            and other users can vote to help you finally make a choice.
           </div>
           <div className="personal-info">
             <div className="full-name">Montgomery Flagg</div>
