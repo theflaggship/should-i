@@ -8,7 +8,7 @@
 <br />
 <br />
 
-Having a hard time making a decision? Should I? is a web app where users post poll questions and other users can vote for one of their options.
+Having a hard time making a decision? Should I? is a web app where users post poll questions with options and other users can vote for one of the options to help users finally make a choice.
 
 View live: <a href='https://should--i.herokuapp.com/'>Should I?</a>
 
@@ -18,9 +18,9 @@ View live: <a href='https://should--i.herokuapp.com/'>Should I?</a>
 
 - User Sign up/in with email and password (Demo account link provided).
 - See polls from various users
-- Create, Edit and Delete polls with options
-- Create, Edit and Delete votes on options
-- Create, Edit and Delete comments on polls
+- Create, Edit and Delete polls
+- Create, Edit and Delete options for polls
+- Create, Edit and Delete votes for options
   <br />
 
 ## Home Page:
