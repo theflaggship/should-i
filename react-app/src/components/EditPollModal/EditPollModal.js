@@ -12,13 +12,10 @@ const EditPoll = ({poll, setShowModal}) => {
 	const [errors, setErrors] = useState([]);
 	const [question, setQuestion] = useState(poll.question);
   const [options, setOptions] = useState(optionsArray);
-  const [image, setImage] = useState(false);
+  const [isImage, setIsImage] = useState(false);
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getPolls())
-  }, [dispatch])
 
   function isValidURL(string) {
     var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
@@ -27,10 +24,12 @@ const EditPoll = ({poll, setShowModal}) => {
   const validURL = options.every(option => isValidURL(option))
   const validOption = options.every(option => option !== '')
 
+  useEffect(() => {
+    if (poll.options[0].image) {
+      setIsImage(true)
+    }
+  }, [])
 
-  // if (poll.options[0].image) {
-  //   image = true
-  // }
 
 	const onEdit = async (e) => {
 		e.preventDefault();
@@ -39,7 +38,7 @@ const EditPoll = ({poll, setShowModal}) => {
       setErrors(["One or more options are missing"])
       return
     }
-    if (image && !validURL) {
+    if (isImage && !validURL) {
       setErrors(["Image URLs are not valid"])
       return
     }
@@ -49,7 +48,7 @@ const EditPoll = ({poll, setShowModal}) => {
         poll.id,
 				question,
         options,
-        image,
+        isImage,
         user
 			)
 		);
@@ -90,7 +89,7 @@ const EditPoll = ({poll, setShowModal}) => {
 
 
   const updateImage = (e) => {
-    setImage(e.target.checked)
+    setIsImage(e.target.checked)
 }
 
 	return (
@@ -115,10 +114,11 @@ const EditPoll = ({poll, setShowModal}) => {
             <label>Image URLs?</label>
             <input
                 type='checkbox'
-                checked={image}
+                checked={isImage}
                 className='image-checkbox'
                 onChange={updateImage}
-                value={image}></input>
+                // value={isImage}
+                />
           </div>
           {options.map((option, index) => {
             return (

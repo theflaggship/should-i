@@ -75,9 +75,10 @@
   margin-top: 10px;
   margin-bottom: 10px;
   cursor: pointer;
+  background-size: cover;
 }
 
-.option-image {
+.option-image-content {
   width: 200px;
   height: auto;
   cursor: pointer;

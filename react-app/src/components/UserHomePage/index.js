@@ -34,6 +34,15 @@ function HomePage({userPolls}) {
     dispatch(castOneVote(optionId, index, pollId, user_voted))
   }
 
+  const showEdit = (poll) => {
+    let userVoted = false;
+    let voteCount = 0;
+    poll.options.forEach((option) => {
+      voteCount += option.vote_count
+      userVoted = userVoted || option.user_voted
+    })
+    return voteCount === 0 || (voteCount === 1 && userVoted)
+  }
 
 
   return (
@@ -48,7 +57,7 @@ function HomePage({userPolls}) {
                 {(poll.user_id === user.id) &&
                   <>
                     <DeletePollModal pollId={poll?.id} />
-                    {poll.options.every(option => option.vote_count === 0) &&
+                    {showEdit(poll) &&
                       <EditPollModal poll={poll} />
                     }
                   </>
@@ -58,8 +67,8 @@ function HomePage({userPolls}) {
               {poll.options[0].image ?
                 <div className="image-options-container">
                   {poll?.options?.map((option, index) =>
-                    <div key={option.id} className={`${option.user_voted ? "image-voted" : ""} option-image-container`} onClick={() => handleVote(option.id, index, poll.id, option.user_voted)}>
-                      <img className="option-image-content" src={option.content} />
+                    <div style={{backgroundImage: `url(${option.content})`}} key={option.id} className={`${option.user_voted ? "image-voted" : ""} option-image-container`} onClick={() => handleVote(option.id, index, poll.id, option.user_voted)}>
+                      {/* <img className="option-image-content" src={option.content} /> */}
                       <div className="image-vote-count-footer">
                         {option.vote_count === 1 ?
                           <div className="image-vote-count">{option.vote_count} Vote</div>
