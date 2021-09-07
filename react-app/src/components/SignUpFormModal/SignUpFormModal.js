@@ -100,7 +100,7 @@ const SignUpForm = ({setShowModal}) => {
 						name='username'
 						onChange={updateUsername}
 						value={username}
-						required={true}></input>
+						/>
 				</div>
 				<div className='form-input-container'>
 					<input
@@ -110,7 +110,7 @@ const SignUpForm = ({setShowModal}) => {
 						name='email'
 						onChange={updateEmail}
 						value={email}
-						required={true}></input>
+						/>
 				</div>
 				<div className='form-input-container'>
 					<input
@@ -120,7 +120,7 @@ const SignUpForm = ({setShowModal}) => {
 						name='profile_pic'
 						onChange={updateProfilePic}
 						value={profile_pic}
-						required></input>
+						/>
 				</div>
 				<div className='form-input-container'>
 					<input
@@ -129,7 +129,6 @@ const SignUpForm = ({setShowModal}) => {
 						name='password'
 						onChange={updatePassword}
 						value={password}
-						required={true}
 						placeholder=' Password'></input>
 				</div>
 				<div className='form-input-container'>
@@ -139,7 +138,6 @@ const SignUpForm = ({setShowModal}) => {
 						name='repeat_password'
 						onChange={updateRepeatPassword}
 						value={repeatPassword}
-						required={true}
 						placeholder=' Confirm Password'></input>
 				</div>
 				<div className='form-button-container'>
