@@ -10,7 +10,7 @@
   align-content: space-around;
   align-items: center;
   background-color: #2f455c;
-  z-index: 100;
+  z-index: 50000;
 }
 
 .left-nav {
